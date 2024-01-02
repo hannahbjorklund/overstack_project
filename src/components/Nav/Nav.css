@@ -7,6 +7,7 @@
   margin: 0 0 30px;
   background-color: #242525;
   overflow: hidden;
+  
 }
 
 .nav a {
@@ -14,7 +15,9 @@
 }
 
 .nav-title {
-  font-size: 24px;
+  font-family: 'BigNoodleOblique';
+  font-size: 50px;
+  letter-spacing: 0.2rem;
   font-weight: 700;
   color: #f2f2f2;
   padding-left: 10px;

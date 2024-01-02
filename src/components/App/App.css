@@ -5,9 +5,10 @@ body,
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Koverwatch';
+  letter-spacing: 0.1vw;
   margin: 0px;
-  background: radial-gradient(#bbbbbb,#b3b4b5);
+  background: linear-gradient(rgb(203, 200, 200), rgb(125, 135, 149));
   -webkit-overflow-Y: hidden;
   -moz-overflow-Y: hidden;
   -o-overflow-Y: hidden;
@@ -401,12 +402,29 @@ Form Treatment
   max-width: 100%;
   padding: 25px;
   margin: 0 auto 20px;
-  background-color: #efefef;
-  border-radius: 3px;
-  box-shadow: 0 1px 2px rgb(0, 0, 0, 0.4);
+  border-radius: 10px;
+  box-shadow: 0 3px 3px 3px rgb(0, 0, 0, 0.4);
+  text-align: center;
 }
 
 input {
   margin: 5px;
   margin-bottom: 10px;
 }
+
+@font-face {
+  font-family: 'BigNoodleOblique'; 
+  src: url('../../../public/big_noodle_titling_oblique.ttf'); 
+}
+
+@font-face{
+  font-family: 'Koverwatch';
+  src: url('../../../public/Koverwatch\ Regular.ttf')
+}
+
+.btn {
+  font-family: 'Koverwatch';
+  letter-spacing: 0.01vw;
+}
+
+
