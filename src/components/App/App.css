@@ -408,8 +408,11 @@ Form Treatment
 }
 
 input {
-  margin: 5px;
-  margin-bottom: 10px;
+  padding: 0.4rem;
+  border: none;
+  margin-bottom: 0.5rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 @font-face {
@@ -443,6 +446,15 @@ button{
   font-family: 'Koverwatch';
   letter-spacing: 1px;
   font-size: large;
+}
+
+.linkButton{
+  width: 175px;
+  font-size: x-large;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 7px;
+  padding-right: 7px;
 }
 
 

@@ -1,5 +1,23 @@
 .tagInput{
-    width: 3vw;
+    width: 4vw;
+    margin-right: 2rem;
+    border: none;
+    padding: 0.4rem;
+    letter-spacing: 0.1rem;
+    font-size: medium;
+}
+
+.nameInput{
+    width: 8vw;
+    padding: 0.4rem;
+    border: none;
+    
+    letter-spacing: 0.1rem;
+    font-size: medium;
+}
+
+label{
+    font-size: x-large;
 }
 
 .cardContainer{
@@ -8,4 +26,5 @@
     flex-flow: column;
     justify-content: center;
     align-items: center;
+
 }

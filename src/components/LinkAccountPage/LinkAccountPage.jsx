@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import { Route, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import PlayerCard from '../PlayerCard/PlayerCard';
 import './LinkAccountPage.css';
@@ -35,7 +34,8 @@ export default function LinkAccountPage(){
     
     return (
         <div className='cardContainer'>
-            <form onSubmit={handleSubmit}>
+            <h1>Link A Blizzard Account</h1>
+            <form className='formPanel' onSubmit={handleSubmit}>
                 <input
                     className="nameInput"
                     placeholder="Username"
@@ -57,7 +57,9 @@ export default function LinkAccountPage(){
             </form>
             
             {/* Show a preview of the blizzard account's in-game profile */}
+            <h2>Profile Preview:</h2>
             <PlayerCard stats={stats}/>
+            <button className='btn linkButton'>Link to My Account</button>
         </div>
     )
 }
