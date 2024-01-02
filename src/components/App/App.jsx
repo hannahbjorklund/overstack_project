@@ -15,6 +15,7 @@ import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import LinkAccountPage from '../LinkAccountPage/LinkAccountPage';
 
 import './App.css';
 
@@ -55,6 +56,11 @@ function App() {
             path="/user"
           >
             <UserPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact path='/linkAccount'>
+              <LinkAccountPage/>
           </ProtectedRoute>
 
           <ProtectedRoute
