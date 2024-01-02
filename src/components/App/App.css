@@ -426,14 +426,10 @@ input {
   font-family: 'Koverwatch';
   letter-spacing: 1px;
   font-size: large;
-  display: block;
-  position: relative;
   margin: 20px auto 0;
   padding: 10px 0;
   width: 75px;
   color: #fff;
-  text-align: center;
-  text-transform: uppercase;
   background-color: rgb(115, 119, 137);
   border: none;
   border-radius: 3px;
@@ -446,6 +442,9 @@ input {
 button{
   font-family: 'Koverwatch';
   letter-spacing: 1px;
+  font-size: large;
 }
+
+
 
 
