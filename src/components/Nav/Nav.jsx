@@ -10,7 +10,7 @@ function Nav() {
   return (
     <div className="nav">
       <Link to="/home">
-        <h2 className="nav-title">OverStack</h2>
+        <h2 className="nav-title"><span className='titleO'>O</span>verStack</h2>
       </Link>
       <div>
         {/* If no user is logged in, show these links */}
@@ -32,13 +32,18 @@ function Nav() {
               Info Page
             </Link>
 
-            <LogOutButton className="navLink" />
           </>
         )}
 
         <Link className="navLink" to="/about">
           About
         </Link>
+
+        {user.id && (
+          <>
+            <LogOutButton className="navLink" />
+          </>
+        )}
       </div>
     </div>
   );
