@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import PlayerCard from '../PlayerCard/PlayerCard';
+import './LinkAccountPage.css';
 
 export default function LinkAccountPage(){
     const [stats, setStats] = useState("");
@@ -21,7 +22,7 @@ export default function LinkAccountPage(){
     const getStats = () => {
         axios({
           method: "GET",
-          url: `/ow?tag=${nameInput}-${tagInput}`,
+          url: `/blizzard?tag=${nameInput}-${tagInput}`,
         })
           .then((response) => {
             console.log("GOT a response from server:", response.data);
@@ -33,7 +34,7 @@ export default function LinkAccountPage(){
     };
     
     return (
-        <div className='container'>
+        <div className='cardContainer'>
             <form onSubmit={handleSubmit}>
                 <input
                     className="nameInput"
