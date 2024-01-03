@@ -2,26 +2,35 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import PlayerCard from '../PlayerCard/PlayerCard';
 import './LinkAccountPage.css';
+import { useSelector, useDispatch } from 'react-redux';
 
 export default function LinkAccountPage(){
+    const user = useSelector((store) => store.user);
+    const dispatch = useDispatch();
+
     const [stats, setStats] = useState("");
     const [nameInput, setNameInput] = useState("");
     const [tagInput, setTagInput] = useState("");
-
+    const [battleTag, setBattleTag] = useState("");
+    
     const handleSubmit = (evt) => {
         evt.preventDefault();
         console.log("In handleSubmit");
-        console.log(`${nameInput}-${tagInput}`);
+        console.log('Battletag:', battleTag);
         getStats();
         setNameInput("");
         setTagInput("");
     };
 
+    const setCurrentBattleTag = () => {
+        setBattleTag(`${nameInput}-${tagInput}`);
+    }
+
     // Prompt the API for a specific blizzard battletag
     const getStats = () => {
         axios({
           method: "GET",
-          url: `/blizzard?tag=${nameInput}-${tagInput}`,
+          url: `/statsSummary?tag=${battleTag}`,
         })
           .then((response) => {
             console.log("GOT a response from server:", response.data);
@@ -31,6 +40,23 @@ export default function LinkAccountPage(){
             console.log("getStats fail:", error);
           });
     };
+
+    // Add the corresponding battletag to the blizzard_accounts table
+    //  and link it to the user in the user_accounts table
+    const addUserAccount = () => {
+        const addedAccount = {
+            battletag: battleTag, 
+            userID: user.id
+        };
+
+        console.log('Adding this blizzard account to DB:', addedAccount);
+
+        // Dispatch to addUserAccount in sagas
+        dispatch({
+            type: 'ADD_USER_ACCOUNT',
+            payload: addedAccount
+        });
+    }
     
     return (
         <div className='cardContainer'>
@@ -53,13 +79,13 @@ export default function LinkAccountPage(){
                     }}
                     value={tagInput}
                 />
-                <button className='btn'>Search</button>
+                <button onClick={setCurrentBattleTag} className='btn'>Search</button>
             </form>
             
             {/* Show a preview of the blizzard account's in-game profile */}
             <h2>Profile Preview:</h2>
             <PlayerCard stats={stats}/>
-            <button className='btn linkButton'>Link to My Account</button>
+            <button className='btn linkButton' onClick = {addUserAccount}>Link to My Account</button>
         </div>
     )
 }
