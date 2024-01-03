@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import axios from 'axios';
 import PlayerCard from '../PlayerCard/PlayerCard';
 import './LinkAccountPage.css';
 import { useSelector, useDispatch } from 'react-redux';
@@ -8,7 +7,6 @@ export default function LinkAccountPage(){
     const user = useSelector((store) => store.user);
     const dispatch = useDispatch();
 
-    const [stats, setStats] = useState("");
     const [nameInput, setNameInput] = useState("");
     const [tagInput, setTagInput] = useState("");
     const [battleTag, setBattleTag] = useState("");
@@ -17,7 +15,6 @@ export default function LinkAccountPage(){
         evt.preventDefault();
         console.log("In handleSubmit");
         console.log('Battletag:', battleTag);
-        getStats();
         setNameInput("");
         setTagInput("");
     };
@@ -25,21 +22,6 @@ export default function LinkAccountPage(){
     const setCurrentBattleTag = () => {
         setBattleTag(`${nameInput}-${tagInput}`);
     }
-
-    // Prompt the API for a specific blizzard battletag
-    const getStats = () => {
-        axios({
-          method: "GET",
-          url: `/statsSummary?tag=${battleTag}`,
-        })
-          .then((response) => {
-            console.log("GOT a response from server:", response.data);
-            setStats(response.data);
-          })
-          .catch((error) => {
-            console.log("getStats fail:", error);
-          });
-    };
 
     // Add the corresponding battletag to the blizzard_accounts table
     //  and link it to the user in the user_accounts table
@@ -57,7 +39,7 @@ export default function LinkAccountPage(){
             payload: addedAccount
         });
     }
-    
+
     return (
         <div className='cardContainer'>
             <h1>Link A Blizzard Account</h1>
@@ -84,7 +66,7 @@ export default function LinkAccountPage(){
             
             {/* Show a preview of the blizzard account's in-game profile */}
             <h2>Profile Preview:</h2>
-            <PlayerCard stats={stats}/>
+            {battleTag && <PlayerCard battleTag={battleTag}/>}
             <button className='btn linkButton' onClick = {addUserAccount}>Link to My Account</button>
         </div>
     )

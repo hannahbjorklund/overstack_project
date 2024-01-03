@@ -1,16 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import './PlayerCard.css';
+import { useSelector, useDispatch } from 'react-redux';
 
-export default function PlayerCard({stats}){
+// Provided with a battletag, PlayerCard will query the API for that account's stats, then render those stats
+//  in a card
+export default function PlayerCard({battleTag}){
+    const dispatch = useDispatch();
+    const stats = useSelector((store) => store.blizzard.accountSummary);
+    
+    useEffect(() => {getStats()}, []);
+
+
     const myStyle = {
         backgroundImage: `url(${stats.namecard})`,
         backgroundSize: "auto",
-      };
-    
+    };
+
+    // Prompt the API for a stat summary of a specific blizzard account
+    const getStats = () => {
+        console.log("Inside getStats");
+        dispatch({
+            type: 'GET_ACCOUNT_SUMMARY',
+            payload: battleTag
+        })
+        console.log('Inside playercard', stats);
+    };
+
     return (
         // Check to make sure the stats exist, then render the playerCard
         stats && (
-            <div className="playerCard" style={myStyle}>
+            <div className="playerCard" style={myStyle} >
                 <div className="playerIcon">
                     <img src={stats.avatar} />
                 </div>
@@ -59,8 +78,9 @@ export default function PlayerCard({stats}){
                     </>
                     )}
                 </div>
+                {/* Check to make sure the player has an endorsement level, then render */}
                 <div className="endorseIcon">
-                    <img src={stats.endorsement.frame} />
+                    {stats.endorsement && <img src={stats.endorsement.frame} />}
                 </div>
             </div>
         )

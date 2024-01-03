@@ -37,7 +37,25 @@ function* getUserAccounts(action){
     }
 }
 
+// Query the API for an account's summary stats given battletag
+function* getAccountSummary(action){
+    console.log("Inside getAccountSummary, action.payload:", action.payload);
+    try{
+        let battleTag = action.payload;
+        const accountSummary = yield axios.get(`/statsSummary?tag=${battleTag}`);
+        console.log("Got account summary:", accountSummary);
+        // Set value of accountSummary reducer
+        yield put({
+            type: 'SET_ACCOUNT_SUMMARY',
+            payload: accountSummary.data
+        })
+    } catch (error) {
+        console.log("Error in getAccountSummary:", error);
+    }
+}
+
 export default function* blizzardSaga() {
     yield takeLatest('ADD_USER_ACCOUNT', addUserAccount);
     yield takeEvery('GET_USER_ACCOUNTS', getUserAccounts);
+    yield takeLatest('GET_ACCOUNT_SUMMARY', getAccountSummary);
 }
