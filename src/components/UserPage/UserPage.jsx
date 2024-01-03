@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import PlayerCard from '../PlayerCard/PlayerCard';
 
 function UserPage() {
   const user = useSelector((store) => store.user);
@@ -29,10 +30,12 @@ function UserPage() {
           return <li>{account.battletag}</li>
         })}
       </ul>
-      <div onClick={() => {
-            history.push('/linkAccount');
-          }}>Link an Account
-      </div>
+      <button 
+        className='btn' 
+        onClick={() => {history.push('/linkAccount');}}
+      >
+        Link an Account
+      </button>
       <LogOutButton className="btn" />
     </div>
   );

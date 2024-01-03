@@ -429,9 +429,13 @@ input {
   font-family: 'Koverwatch';
   letter-spacing: 1px;
   font-size: large;
-  margin: 20px auto 0;
-  padding: 10px 0;
-  width: 75px;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding-right: 10px;
+  padding-left: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  width: auto;
   color: #fff;
   background-color: rgb(115, 119, 137);
   border: none;
