@@ -42,3 +42,14 @@ SELECT "username",
 	ON "users"."id" = "user_accounts"."user_id"
 	JOIN "blizzard_accounts"
 	ON "blizzard_accounts"."id" = "user_accounts"."blizzard_account_id";
+
+-- Show all of a user's added accounts that they DONT own (friends)
+SELECT "battletag"
+	FROM "user_accounts"
+	JOIN "blizzard_accounts"
+	ON
+	"user_accounts"."blizzard_account_id" = "blizzard_accounts"."id"
+	JOIN "users"
+	ON
+	"users"."id" = "blizzard_accounts"."user_id"
+	WHERE "user_accounts"."user_id" IS NULL;

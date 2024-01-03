@@ -3,6 +3,33 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const axios = require('axios');
 
+// Get the blizzard accounts owned by the given user 
+router.get('/:id', (req, res) => {
+    let userID = req.params.id;
+
+    const sqlQuery = `
+    SELECT "username",
+	    "battletag"
+	    FROM "users"
+	    JOIN "user_accounts"
+	    ON "users"."id" = "user_accounts"."user_id"
+	    JOIN "blizzard_accounts"
+	    ON "blizzard_accounts"."id" = "user_accounts"."blizzard_account_id"
+        WHERE "users"."id" = $1;
+    `
+
+    const sqlValues = [userID];
+
+    pool.query(sqlQuery, sqlValues)
+    .then((result) => {
+        console.log("Received some rows from the DB:", result.rows);
+        res.send(result.rows);
+    }).catch((error) => {
+        console.log("Error in GET /blizzard/:id:", error);
+        res.sendStatus(500);
+    })
+})
+
 // Add a new blizzard account to the database
 router.post('/', (req, res) => {
     let battletag = req.body.battletag;
