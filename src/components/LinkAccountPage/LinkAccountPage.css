@@ -1,30 +1,28 @@
-.tagInput{
-    width: 4vw;
-    margin-right: 1rem;
-    border: none;
-    padding: 0.4rem;
-    letter-spacing: 0.1rem;
-    font-size: medium;
+.tagInput {
+  width: 4vw;
+  margin-right: 1rem;
+  border: none;
+  padding: 0.4rem;
+  letter-spacing: 0.1rem;
+  font-size: medium;
 }
 
-.nameInput{
-    width: 8vw;
-    padding: 0.4rem;
-    border: none;
-    
-    letter-spacing: 0.1rem;
-    font-size: medium;
+.nameInput {
+  width: 8vw;
+  padding: 0.4rem;
+  border: none;
+  letter-spacing: 0.1rem;
+  font-size: medium;
 }
 
-label{
-    font-size: x-large;
+label {
+  font-size: x-large;
 }
 
-.cardContainer{
-    padding: 20px;
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    align-items: center;
-
+.cardContainer {
+  padding: 20px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
 }
