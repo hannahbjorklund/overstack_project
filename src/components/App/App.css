@@ -9,7 +9,7 @@ body {
   letter-spacing: 0.2vw;
   margin: 0px;
   background: linear-gradient(rgb(203, 200, 200), rgb(125, 135, 149));
-  overflow-y: hidden;
+  overflow-y: auto;
   -webkit-overflow-Y: hidden;
   -moz-overflow-Y: hidden;
   -o-overflow-Y: hidden;

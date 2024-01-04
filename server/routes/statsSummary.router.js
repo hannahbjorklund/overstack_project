@@ -6,12 +6,10 @@ const axios = require('axios');
 // Given a battletag, query the API for that player's stats summary
 router.get('/', (req, res) => {
     const tag= req.query.tag;
-    console.log("Battletag:", tag);
     axios({
         method: 'GET',
         url: `https://overfast-api.tekrop.fr/players/${tag}/summary`
     }).then((response) => {
-        console.log('GET success', response.data);
         res.send(response.data);
     }).catch((error) => {
         console.log('Error in GET:', error);

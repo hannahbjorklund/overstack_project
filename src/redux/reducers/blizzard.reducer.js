@@ -19,10 +19,21 @@ const accountSummary = (state = {}, action) => {
       return state;
   }
 }
+
+const statsArray = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_STATS_ARRAY':
+      // console.log("Setting stats array:", action.payload);
+      return action.payload;
+    default:
+      return state;
+  }
+}
   
 // user will be on the redux state at:
 // state.user
 export default combineReducers({
   userAccounts,
   accountSummary,
+  statsArray
 });

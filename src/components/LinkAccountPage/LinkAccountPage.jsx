@@ -6,28 +6,23 @@ import { useSelector, useDispatch } from 'react-redux';
 export default function LinkAccountPage(){
     const user = useSelector((store) => store.user);
     const dispatch = useDispatch();
+    const stats = useSelector((store) => store.blizzard.accountSummary);
 
     const [nameInput, setNameInput] = useState("");
     const [tagInput, setTagInput] = useState("");
-    const [battleTag, setBattleTag] = useState("");
+    const [battletag, setBattletag] = useState("");
     
     const handleSubmit = (evt) => {
         evt.preventDefault();
         console.log("In handleSubmit");
-        console.log('Battletag:', battleTag);
-        setNameInput("");
-        setTagInput("");
+        console.log('Battletag:', `${nameInput}-${tagInput}`);
     };
-
-    const setCurrentBattleTag = () => {
-        setBattleTag(`${nameInput}-${tagInput}`);
-    }
 
     // Add the corresponding battletag to the blizzard_accounts table
     //  and link it to the user in the user_accounts table
     const addUserAccount = () => {
         const addedAccount = {
-            battletag: battleTag, 
+            battletag: `${nameInput}-${tagInput}`, 
             userID: user.id
         };
 
@@ -38,6 +33,16 @@ export default function LinkAccountPage(){
             type: 'ADD_USER_ACCOUNT',
             payload: addedAccount
         });
+        setNameInput("");
+        setTagInput("");
+    }
+
+    const getStats = (e) => {
+        e.preventDefault();
+        dispatch({
+            type: 'GET_ACCOUNT_SUMMARY',
+            payload: `${nameInput}-${tagInput}`
+        })
     }
 
     return (
@@ -61,12 +66,12 @@ export default function LinkAccountPage(){
                     }}
                     value={tagInput}
                 />
-                <button onClick={setCurrentBattleTag} className='btn'>Search</button>
+                <button onClick={getStats} className='btn'>Search</button>
             </form>
             
             {/* Show a preview of the blizzard account's in-game profile */}
             <h2>Profile Preview:</h2>
-            {battleTag && <PlayerCard battleTag={battleTag}/>}
+            {stats && <PlayerCard stats={stats}/>}
             <button className='btn linkButton' onClick = {addUserAccount}>Link to My Account</button>
         </div>
     )

@@ -4,17 +4,22 @@ import axios from 'axios';
 // Add a new blizzard account to the user's stack or linked accounts
 function* addUserAccount(action){
     try {
+        
         const newAccount = action.payload;
-        // POST request
-        const response = yield axios({
-            method: 'POST',
-            url: '/blizzard',
-            data: newAccount
-        })
-        // yield put({
-        //   type: 'FETCH_USER_ACCOUNTS'
-        // })
-        alert(`Success! Linked ${newAccount.battletag} to your profile`);
+        if(newAccount.battletag == '-'){
+            alert("Sorry, an error occurred. Please try again");
+        } else {
+            // POST request
+            const response = yield axios({
+                method: 'POST',
+                url: '/blizzard',
+                data: newAccount
+            })
+            yield put({
+              type: 'GET_USER_ACCOUNTS'
+            })
+            alert(`Success! Linked ${newAccount.battletag} to your profile`);
+        }
         } catch (error){
         console.log("Error in addAccount:", error);
         }
@@ -51,11 +56,34 @@ function* getAccountSummary(action){
         })
     } catch (error) {
         console.log("Error in getAccountSummary:", error);
+        alert("An error occurred. Try again, or check the FAQ for help");
     }
 }
+
+// Query the API for an array of multiple battletags
+function* getStatsArray(action){
+    try{
+        let battleTagArray = action.payload;
+        let statsArray = [];
+        for(let i=0; i<battleTagArray.length; i++){
+            const stats = yield axios.get(`/statsSummary?tag=${battleTagArray[i]}`);
+            statsArray.push(stats.data);
+        }
+
+        console.log("Got stats array:", statsArray);
+        yield put({
+            type: 'SET_STATS_ARRAY',
+            payload: statsArray
+        })
+    } catch (error) {
+        console.log("Error in getStatsArray:", error);
+    }
+}
+
 
 export default function* blizzardSaga() {
     yield takeLatest('ADD_USER_ACCOUNT', addUserAccount);
     yield takeEvery('GET_USER_ACCOUNTS', getUserAccounts);
     yield takeLatest('GET_ACCOUNT_SUMMARY', getAccountSummary);
+    yield takeLatest('GET_STATS_ARRAY', getStatsArray);
 }

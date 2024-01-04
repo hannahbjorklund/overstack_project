@@ -4,26 +4,12 @@ import { useSelector, useDispatch } from 'react-redux';
 
 // Provided with a battletag, PlayerCard will query the API for that account's stats, then render those stats
 //  in a card
-export default function PlayerCard({battleTag}){
-    const dispatch = useDispatch();
-    const stats = useSelector((store) => store.blizzard.accountSummary);
+export default function PlayerCard({stats}){
+    console.log("Inside PlayerCard:", stats);
     
-    useEffect(() => {getStats()}, []);
-
-
     const myStyle = {
         backgroundImage: `url(${stats.namecard})`,
         backgroundSize: "auto",
-    };
-
-    // Prompt the API for a stat summary of a specific blizzard account
-    const getStats = () => {
-        console.log("Inside getStats");
-        dispatch({
-            type: 'GET_ACCOUNT_SUMMARY',
-            payload: battleTag
-        })
-        console.log('Inside playercard', stats);
     };
 
     return (
