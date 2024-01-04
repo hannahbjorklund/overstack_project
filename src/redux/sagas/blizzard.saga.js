@@ -4,7 +4,6 @@ import axios from 'axios';
 // Add a new blizzard account to the user's stack or linked accounts
 function* addUserAccount(action){
     try {
-        
         const newAccount = action.payload;
         if(newAccount.battletag == '-'){
             alert("Sorry, an error occurred. Please try again");
@@ -44,7 +43,6 @@ function* getUserAccounts(action){
 
 // Query the API for an account's summary stats given battletag
 function* getAccountSummary(action){
-    console.log("Inside getAccountSummary, action.payload:", action.payload);
     try{
         let battleTag = action.payload;
         const accountSummary = yield axios.get(`/statsSummary?tag=${battleTag}`);
@@ -80,10 +78,28 @@ function* getStatsArray(action){
     }
 }
 
+function* removeAccount(action){
+    console.log("Inside removeAccount, action.payload:", action.payload);
+    try{
+        let battleTag = action.payload;
+        const accountSummary = yield axios.get(`/statsSummary?tag=${battleTag}`);
+        console.log("Got account summary:", accountSummary);
+        // Set value of accountSummary reducer
+        yield put({
+            type: 'SET_ACCOUNT_SUMMARY',
+            payload: accountSummary.data
+        })
+    } catch (error) {
+        console.log("Error in getAccountSummary:", error);
+        alert("An error occurred. Try again, or check the FAQ for help");
+    }
+}
+
 
 export default function* blizzardSaga() {
     yield takeLatest('ADD_USER_ACCOUNT', addUserAccount);
     yield takeEvery('GET_USER_ACCOUNTS', getUserAccounts);
     yield takeLatest('GET_ACCOUNT_SUMMARY', getAccountSummary);
     yield takeLatest('GET_STATS_ARRAY', getStatsArray);
+    yield takeLatest('REMOVE_ACCOUNT', removeAccount);
 }

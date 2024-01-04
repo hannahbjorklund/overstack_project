@@ -2,11 +2,13 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import PlayerCard from "../PlayerCard/PlayerCard";
-import './UserPage.css';
+import './RemoveUserAccount.css';
 
-function UserPage() {
+function RemoveUserAccount() {
   const history = useHistory();
   const dispatch = useDispatch();
+
+  console.log("Currently at:", history.location.pathname);
 
   const user = useSelector((store) => store.user);
   const userAccounts = useSelector((store) => store.blizzard.userAccounts);
@@ -54,25 +56,30 @@ function UserPage() {
           {/* Display each user account as a playercard */}
           <h2 className = 'accountHeader'>Your linked accounts: </h2>
           <button
-            className="btn"
+            className="btnDisabled"
             onClick={() => {
               history.push("/linkAccount");
             }}
+            disabled={true}
           >
             Link Another Account
           </button>
 
-          <button className="btn" onClick={() => {
-              history.push("/removeUserAccount");
-            }}>
-            Remove Account
+          <button 
+            className="btn"
+            onClick={() => {
+                history.push("/user");
+            }}
+          >
+            Cancel
           </button>
         
-        <div className = 'accountsContainer'>
+        <span className = 'removeMessage'>Click an account to remove</span>
+        <div className = 'accountsContainerRemove'>
           {
             statsArray &&
             statsArray.map((x, i) => {
-              return <PlayerCard key={i} stats={x} />;
+              return <PlayerCard key={i} stats={x}/>;
             })
           }
         </div>
@@ -82,4 +89,4 @@ function UserPage() {
   );
 }
 
-export default UserPage;
+export default RemoveUserAccount;

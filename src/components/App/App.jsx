@@ -16,6 +16,7 @@ import InfoPage from '../InfoPage/InfoPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import LinkAccountPage from '../LinkAccountPage/LinkAccountPage';
+import RemoveUserAccount from '../RemoveUserAccount/RemoveUserAccount';
 
 import './App.css';
 
@@ -61,6 +62,11 @@ function App() {
           <ProtectedRoute
             exact path='/linkAccount'>
               <LinkAccountPage/>
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact path='/removeUserAccount'>
+              <RemoveUserAccount/>
           </ProtectedRoute>
 
           <ProtectedRoute

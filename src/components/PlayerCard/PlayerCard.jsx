@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import './PlayerCard.css';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -12,10 +12,17 @@ export default function PlayerCard({stats}){
         backgroundSize: "auto",
     };
 
+    const unlinkAccount = () => {
+        if(confirm(`Are you sure you want to unlink ${stats.battletag}?`)){
+            console.log("Unlinking account:", stats.battletag);
+            
+        }
+    }
+
     return (
         // Check to make sure the stats exist, then render the playerCard
         stats && (
-            <div className="playerCard" style={myStyle} >
+            <div className="playerCard" style={myStyle} onClick={unlinkAccount}>
                 <div className="playerIcon">
                     <img src={stats.avatar} />
                 </div>
