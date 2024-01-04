@@ -3,6 +3,7 @@ import LogOutButton from "../LogOutButton/LogOutButton";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import PlayerCard from "../PlayerCard/PlayerCard";
+import './UserPage.css';
 
 function UserPage() {
   const history = useHistory();
@@ -44,26 +45,38 @@ function UserPage() {
   }
 
   return (
-    <div className="container">
-      <h2>Welcome, {user.username}!</h2>
-      <p>Your ID is: {user.id}</p>
-      <p>Your linked accounts: </p>
+    <div className="profileContainer">
+      <div className="infoContainer">
+        <h1>Welcome, {user.username}!</h1>
+        <p>Your ID is: {user.id}</p>
+      </div>
 
-      {/* Display each user account as a playercard */}
-      {statsArray &&
-        statsArray.map((x, i) => {
-          return <PlayerCard key={i} stats={x} />;
-        })}
+      <div className = 'accountsSection'>
+          {/* Display each user account as a playercard */}
+          <h2 className = 'accountHeader'>Your linked accounts: </h2>
+          <button
+            className="btn"
+            onClick={() => {
+              history.push("/linkAccount");
+            }}
+          >
+            Link Another Account
+          </button>
 
-      <button
-        className="btn"
-        onClick={() => {
-          history.push("/linkAccount");
-        }}
-      >
-        Link an Account
-      </button>
-      <LogOutButton className="btn" />
+          <button className="btn">
+            Remove Account
+          </button>
+        
+        <div className = 'accountsContainer'>
+          {
+            statsArray &&
+            statsArray.map((x, i) => {
+              return <PlayerCard key={i} stats={x} />;
+            })
+          }
+        </div>
+        
+      </div>
     </div>
   );
 }

@@ -74,7 +74,7 @@ export default function LinkAccountPage() {
 
       {/* Show a preview of the blizzard account's in-game profile */}
       <h2>Profile Preview:</h2>
-      {stats && <PlayerCard stats={stats} />}
+      {stats.username && <PlayerCard stats={stats} />}
       <button className="btn linkButton" onClick={addUserAccount}>
         Link to My Account
       </button>

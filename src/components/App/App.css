@@ -9,7 +9,8 @@ body {
   letter-spacing: 0.2vw;
   margin: 0px;
   background: linear-gradient(rgb(203, 200, 200), rgb(125, 135, 149));
-  overflow-y: auto;
+  overflow-y: hidden;
+  overflow-x: hidden;
   -webkit-overflow-Y: hidden;
   -moz-overflow-Y: hidden;
   -o-overflow-Y: hidden;
@@ -459,6 +460,7 @@ button{
   padding-bottom: 10px;
   padding-left: 7px;
   padding-right: 7px;
+  margin-top: 2em;
 }
 
 

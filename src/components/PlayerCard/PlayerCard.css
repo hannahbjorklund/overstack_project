@@ -1,19 +1,18 @@
 .playerCard {
     display: flex;
     height: 10rem;
-    width: 90vw;
+    width: auto;
     flex-direction: row;
     z-index: 2;
     justify-self: center;
     border-radius: 0.3em;
     box-shadow: 5px 5px 8px darkslategray;
     margin: 1.5rem;
-    margin-bottom: 3rem;
 }
 
-/* .playerCard:hover{
-    transform: scale(1.2);
-} */
+.playerCard:hover{
+    transform: scale(1.05);
+}
 
 .playerIcon {
     height: auto;
@@ -25,7 +24,7 @@
 
 .endorseIcon {
     height: auto;
-    width: 7em;
+    width: 6em;
     margin-left: auto;
     margin-right: 1rem;
     align-self: center;
@@ -39,11 +38,12 @@
     letter-spacing: 0.07em;
     font-size: 3vw;
     align-self: center;
+    width: auto;
 }
 
 .roleRanks {
     align-self: center;
-    margin-left: 10vw;
+    margin-left: auto;
     display: flex;
     justify-content: space-evenly;
 }
