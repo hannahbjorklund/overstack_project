@@ -70,12 +70,35 @@ router.get("/all", (req, res) => {
         for(let stat of compGameRaw){compGame[stat.key] = stat.value;}
         for(let stat of compCombatRaw){compCombat[stat.key] = stat.value}
 
+        qpCombat.healing_done = rawStats.quickplay.career_stats['all-heroes'][4].stats[1].value;
         compCombat.healing_done = rawStats.competitive.career_stats['all-heroes'][4].stats[1].value;
 
         allStats.competitive = {
           all_heroes: {
             game: compGame,
             combat: compCombat
+          }
+        }
+
+        // Making a new property to store total states, aka
+        //  quickplay + competitive for each category
+
+        // Adding game stats first
+        let totalGame = {};
+        for(let property in qpGame){
+          totalGame[property] = qpGame[property] + compGame[property];
+        }
+
+        // Adding combat stats
+        let totalCombat = {};
+        for(let property in qpCombat){
+          totalCombat[property] = qpCombat[property] + compCombat[property];
+        }
+        
+        allStats.total = {
+          all_heroes: {
+            game: totalGame,
+            combat: totalCombat
           }
         }
       } 

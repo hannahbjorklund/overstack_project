@@ -61,9 +61,8 @@ function* compileStats(action){
     try{
         let statsArray = action.payload;
         let totalStats = {};
-        for(let statsObject of statsArray){
-
-        }
+        
+        // Add up quickplay stats first
     } catch (error) {
         console.log("Error in compileStats:", error);
     }
