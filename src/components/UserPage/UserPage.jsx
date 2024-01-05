@@ -10,7 +10,7 @@ function UserPage() {
 
   const user = useSelector((store) => store.user);
   const userAccounts = useSelector((store) => store.blizzard.userAccounts);
-  const statsArray = useSelector((store) => store.blizzard.statsArray);
+  const statsArray = useSelector((store) => store.blizzard.statSummaryArray);
 
   useEffect(() => {
     getUserAccounts();
@@ -18,7 +18,11 @@ function UserPage() {
 
   // This is to ensure the userAccounts have been populated before getting each account's stats
   useEffect(() => {
-    getStatsArray();
+    getStatSummaryArray();
+  }, [userAccounts]);
+
+  useEffect(() => {
+    getAllStatsArray();
   }, [userAccounts]);
 
   // Get a list of the user's linked accounts by dispatching
@@ -30,20 +34,28 @@ function UserPage() {
   }
 
   // Get an array of stats objects corresponding to each user account. Then, send an array of each 
-  //  account's battletags to saga function to get stats
-  function getStatsArray() {
+  //  account's battletags to saga function to get stats summaries
+  function getStatSummaryArray() {
     let blizzArray = [];
     userAccounts.map((x) => {
       blizzArray.push({battletag: x.battletag, id: x.blizzard_account_id});
     });
     dispatch({
-      type: "GET_STATS_ARRAY",
+      type: "GET_STAT_SUMMARY_ARRAY",
       payload: blizzArray,
     });
   }
 
-  function getMoreStatsArray() {
-    
+  // Grab more stats, some of which will be displayed in the user info section
+  function getAllStatsArray() {
+    let blizzArray = [];
+    userAccounts.map((x) => {
+      blizzArray.push({battletag: x.battletag, id: x.blizzard_account_id});
+    });
+    // dispatch({
+    //   type: "GET_ALL_STATS_ARRAY",
+    //   payload: blizzArray,
+    // });
   }
 
 

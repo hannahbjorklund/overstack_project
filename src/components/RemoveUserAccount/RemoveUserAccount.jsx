@@ -10,7 +10,7 @@ function RemoveUserAccount() {
 
   const user = useSelector((store) => store.user);
   const userAccounts = useSelector((store) => store.blizzard.userAccounts);
-  const statsArray = useSelector((store) => store.blizzard.statsArray);
+  const statsArray = useSelector((store) => store.blizzard.statSummaryArray);
 
   useEffect(() => {
     getUserAccounts();
@@ -18,7 +18,7 @@ function RemoveUserAccount() {
 
   // This is to ensure the userAccounts have been populated before getting each account's stats
   useEffect(() => {
-    getStatsArray();
+    getStatSummaryArray();
   }, [userAccounts]);
 
   // Get a list of the user's linked accounts by dispatching
@@ -31,7 +31,7 @@ function RemoveUserAccount() {
 
   // Get an array of stats objects corresponding to each user account. Then, send an array of each 
   //  account's battletags to saga function to get stats
-  function getStatsArray() {
+  function getStatSummaryArray() {
     console.log(userAccounts);
     let blizzArray = [];
     userAccounts.map((x) => {
@@ -46,8 +46,21 @@ function RemoveUserAccount() {
   return (
     <div className="profileContainer">
       <div className="infoContainer">
-        <h1>Welcome, {user.username}!</h1>
-        <p>Your ID is: {user.id}</p>
+        <h1 className = 'username'>{user.username}</h1>
+        <div className='userIcon'>
+          <span className='iconText'>{user.username[0]}</span>
+        </div>
+        <div className='timeInfo'>
+          <p> Last online: {user.last_online}</p>
+          <p> Created: {user.created_at} 🎂</p>
+        </div>
+        <div className='userStats'>
+          <h3>Accounts Overview</h3>
+          <p> Time Played: {}</p>
+          <p> Win %: {}</p>
+          <p> KDA: {}</p>
+        </div>
+        <button className='btn'>View More Stats</button>
       </div>
 
       <div className = 'accountsSection'>

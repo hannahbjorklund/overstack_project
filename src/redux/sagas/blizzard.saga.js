@@ -60,7 +60,7 @@ function* getAccountSummary(action){
 }
 
 // Query the API for an array of multiple battletags
-function* getStatsArray(action){
+function* getStatSummaryArray(action){
     try{
         let blizzardArray = action.payload;
         let statsArray = [];
@@ -70,10 +70,8 @@ function* getStatsArray(action){
             stats.data.blizzardID = blizzardArray[i].id;
             statsArray.push(stats.data);
         }
-
-        console.log("Got stats array:", statsArray);
         yield put({
-            type: 'SET_STATS_ARRAY',
+            type: 'SET_STAT_SUMMARY_ARRAY',
             payload: statsArray
         })
     } catch (error) {
@@ -95,10 +93,29 @@ function* removeAccount(action){
     }
 }
 
+// Get a wide array of competitive and unranked stats for an array of battletags from the API
+function* getAllStatsArray(action){
+    try{
+        let blizzardArray = action.payload;
+        let allStatsArray = [];
+        for(let i=0; i<blizzardArray.length; i++){
+            const stats = yield axios.get(`/statsSummary?tag=${blizzardArray[i].battletag}`);
+            allStatsArray.push(stats.data);
+        }
+        yield put({
+            type: 'SET_ALL_STATS_ARRAY',
+            payload: allStatsArray
+        })
+    } catch (error) {
+        console.log("Error in getStatsArray:", error);
+    }
+}
+
 export default function* blizzardSaga() {
     yield takeLatest('ADD_USER_ACCOUNT', addUserAccount);
     yield takeEvery('GET_USER_ACCOUNTS', getUserAccounts);
     yield takeLatest('GET_ACCOUNT_SUMMARY', getAccountSummary);
-    yield takeLatest('GET_STATS_ARRAY', getStatsArray);
+    yield takeLatest('GET_STAT_SUMMARY_ARRAY', getStatSummaryArray);
     yield takeLatest('REMOVE_ACCOUNT', removeAccount);
+    yield takeLatest('GET_ALL_STATS_ARRAY', getAllStatsArray);
 }

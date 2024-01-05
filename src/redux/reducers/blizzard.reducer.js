@@ -20,10 +20,18 @@ const accountSummary = (state = {}, action) => {
   }
 }
 
-const statsArray = (state = [], action) => {
+const statSummaryArray = (state = [], action) => {
   switch (action.type) {
-    case 'SET_STATS_ARRAY':
-      // console.log("Setting stats array:", action.payload);
+    case 'SET_STAT_SUMMARY_ARRAY':
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
+const allStatsArray = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_ALL_STATS_ARRAY':
       return action.payload;
     default:
       return state;
@@ -35,5 +43,6 @@ const statsArray = (state = [], action) => {
 export default combineReducers({
   userAccounts,
   accountSummary,
-  statsArray
+  statSummaryArray,
+  allStatsArray
 });
