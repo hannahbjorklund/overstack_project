@@ -79,6 +79,7 @@ function* getStatSummaryArray(action){
     }
 }
 
+// Delete a blizzard account from the database
 function* removeAccount(action){
     console.log("Inside removeAccount, action.payload:", action.payload);
     try{

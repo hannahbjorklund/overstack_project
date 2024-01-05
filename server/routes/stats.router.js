@@ -29,55 +29,56 @@ router.get("/all", (req, res) => {
     url: `https://overfast-api.tekrop.fr/players/${tag}`,
   })
     .then((response) => {
+      // Initialize the new object we will send to the client
+      let allStats = {battletag: tag}
 
-        // DATA FORMATTING
-      const rawStats = response.data.stats.pc;
-    
-      let allStats = {
-        battletag: tag,
-        quickplay: {
+      // DATA FORMATTING. 
+      //  There is a possibility a user won't have stats
+      //  This often happens with new users or users that have created an
+      //  account but haven't played. As a result, check stats
+      if(response.data.stats){
+        // Store the raw stats object 
+        const rawStats = response.data.stats.pc;
+      
+        // Initialize two empty objects we wish to add to allStats
+        let qpGame = {};
+        let qpCombat = {};
+
+        // Store the corresponding raw objects we wish to reformat
+        let qpGameRaw = rawStats.quickplay.career_stats['all-heroes'][2].stats;
+        let qpCombatRaw = rawStats.quickplay.career_stats['all-heroes'][3].stats;
+
+        // Populate new objects with reformatted data
+        for(let stat of qpGameRaw){qpGame[stat.key] = stat.value;}
+        for(let stat of qpCombatRaw){qpCombat[stat.key] = stat.value}
+
+        // Assemble the quickplay property
+        allStats.quickplay = {
           all_heroes: {
-            game: {
-              time_played: rawStats.quickplay.career_stats['all-heroes'][2].stats[0].value,
-              games_played: rawStats.quickplay.career_stats['all-heroes'][2].stats[1].value,
-              games_won: rawStats.quickplay.career_stats['all-heroes'][2].stats[2].value,
-              games_lost: rawStats.quickplay.career_stats['all-heroes'][2].stats[3].value
-            },
-            combat: {
-              environmental_kills: rawStats.quickplay.career_stats['all-heroes'][3].stats[0].value,
-              deaths: rawStats.quickplay.career_stats['all-heroes'][3].stats[1].value,
-              final_blows: rawStats.quickplay.career_stats['all-heroes'][3].stats[3].value,
-              objective_time: rawStats.quickplay.career_stats['all-heroes'][3].stats[4].value,
-              eliminations:rawStats.quickplay.career_stats['all-heroes'][3].stats[7].value,
-              objective_contest_time:rawStats.quickplay.career_stats['all-heroes'][3].stats[8].value,
-              damage_done:rawStats.quickplay.career_stats['all-heroes'][3].stats[12].value,
-              healing_done:rawStats.quickplay.career_stats['all-heroes'][4].stats[1].value
-            }
-          }
-        },
-        competitive: {
-          all_heroes: {
-            game: {
-              time_played:rawStats.competitive.career_stats['all-heroes'][2].stats[0].value,
-              games_played:rawStats.competitive.career_stats['all-heroes'][2].stats[1].value,
-              games_won:rawStats.competitive.career_stats['all-heroes'][2].stats[2].value,
-              games_tied:rawStats.competitive.career_stats['all-heroes'][2].stats[3].value,
-              games_lost:rawStats.competitive.career_stats['all-heroes'][2].stats[4].value
-            },
-            combat: {
-              environmental_kills:rawStats.competitive.career_stats['all-heroes'][3].stats[0].value,
-              deaths: rawStats.competitive.career_stats['all-heroes'][3].stats[1].value,
-              final_blows:rawStats.competitive.career_stats['all-heroes'][3].stats[3].value,
-              objective_time:rawStats.competitive.career_stats['all-heroes'][3].stats[4].value,
-              eliminations:rawStats.competitive.career_stats['all-heroes'][3].stats[7].value,
-              objective_contest_time:rawStats.competitive.career_stats['all-heroes'][3].stats[8].value,
-              damage_done:rawStats.competitive.career_stats['all-heroes'][3].stats[12].value,
-              healing_done:rawStats.competitive.career_stats['all-heroes'][4].stats[1].value,
-            }
+            game: qpGame,
+            combat: qpCombat
           }
         }
-      };
+        
+        // Repeat the same process for competitive stats
+        let compGame = {};
+        let compCombat = {};
+        
+        let compGameRaw = rawStats.competitive.career_stats['all-heroes'][2].stats;
+        let compCombatRaw = rawStats.competitive.career_stats['all-heroes'][3].stats;
 
+        for(let stat of compGameRaw){compGame[stat.key] = stat.value;}
+        for(let stat of compCombatRaw){compCombat[stat.key] = stat.value}
+
+        compCombat.healing_done = rawStats.competitive.career_stats['all-heroes'][4].stats[1].value;
+
+        allStats.competitive = {
+          all_heroes: {
+            game: compGame,
+            combat: compCombat
+          }
+        }
+      } 
       res.send(allStats);
     })
     .catch((error) => {

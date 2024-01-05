@@ -11,6 +11,7 @@ function UserPage() {
   const user = useSelector((store) => store.user);
   const userAccounts = useSelector((store) => store.blizzard.userAccounts);
   const statsArray = useSelector((store) => store.blizzard.statSummaryArray);
+  const allStatsArray = useSelector((store) => store.blizzard.allStatsArray);
 
   useEffect(() => {
     getUserAccounts();
@@ -52,14 +53,11 @@ function UserPage() {
     userAccounts.map((x) => {
       blizzArray.push({battletag: x.battletag, id: x.blizzard_account_id});
     });
-    // dispatch({
-    //   type: "GET_ALL_STATS_ARRAY",
-    //   payload: blizzArray,
-    // });
+    dispatch({
+      type: "GET_ALL_STATS_ARRAY",
+      payload: blizzArray,
+    });
   }
-
-
-  statsArray && console.log(statsArray);
 
   return (
     <div className="profileContainer">

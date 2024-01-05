@@ -10,6 +10,7 @@ const userAccounts = (state = [], action) => {
     }
 };
 
+// A reducer to store a single account summary retrieved from the API
 const accountSummary = (state = {}, action) => {
   switch (action.type) {
     case 'SET_ACCOUNT_SUMMARY':
@@ -20,6 +21,7 @@ const accountSummary = (state = {}, action) => {
   }
 }
 
+// Store an array of account summaries
 const statSummaryArray = (state = [], action) => {
   switch (action.type) {
     case 'SET_STAT_SUMMARY_ARRAY':
@@ -29,6 +31,7 @@ const statSummaryArray = (state = [], action) => {
   }
 }
 
+// Store an array of more stats objects retrieved from the API
 const allStatsArray = (state = [], action) => {
   switch (action.type) {
     case 'SET_ALL_STATS_ARRAY':
@@ -38,8 +41,6 @@ const allStatsArray = (state = [], action) => {
   }
 }
   
-// user will be on the redux state at:
-// state.user
 export default combineReducers({
   userAccounts,
   accountSummary,

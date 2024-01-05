@@ -9,8 +9,6 @@ export default function PlayerCard({stats}){
     const history = useHistory();
     const dispatch = useDispatch();
 
-    console.log("Inside PlayerCard:", stats);
-    
     const myStyle = {
         backgroundImage: `url(${stats.namecard})`,
         backgroundSize: "auto",
