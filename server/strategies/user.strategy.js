@@ -17,6 +17,17 @@ passport.deserializeUser((id, done) => {
       if (user) {
         // user found
         delete user.password; // remove password so it doesn't get sent
+
+        // Reformat the date properties to a more readable format
+        user.last_online = JSON.stringify(user.last_online).slice(1, -15);
+        let yearOnline = (user.last_online).substr(0, 4);
+        // Move the year to the end of the date
+        user.last_online = (user.last_online).substr(5) + '-' + yearOnline;
+        
+        user.created_at = JSON.stringify(user.created_at).slice(1, -15);
+        let yearCreated = (user.created_at).substr(0, 4);
+        user.created_at = (user.created_at).substr(5) + '-' + yearCreated;
+        
         // done takes an error (null in this case) and a user
         done(null, user);
       } else {
