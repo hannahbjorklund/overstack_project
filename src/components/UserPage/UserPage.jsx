@@ -35,7 +35,7 @@ function UserPage() {
     console.log(userAccounts);
     let blizzArray = [];
     userAccounts.map((x) => {
-      blizzArray.push(x.battletag);
+      blizzArray.push({battletag: x.battletag, id: x.blizzard_account_id});
     });
     dispatch({
       type: "GET_STATS_ARRAY",

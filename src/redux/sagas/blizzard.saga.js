@@ -20,7 +20,8 @@ function* addUserAccount(action){
             alert(`Success! Linked ${newAccount.battletag} to your profile`);
         }
         } catch (error){
-        console.log("Error in addAccount:", error);
+            alert("An error occurred. Try again, or check the FAQ for help");
+            console.log("Error in addAccount:", error);
         }
 }
 
@@ -61,10 +62,12 @@ function* getAccountSummary(action){
 // Query the API for an array of multiple battletags
 function* getStatsArray(action){
     try{
-        let battleTagArray = action.payload;
+        let blizzardArray = action.payload;
         let statsArray = [];
-        for(let i=0; i<battleTagArray.length; i++){
-            const stats = yield axios.get(`/statsSummary?tag=${battleTagArray[i]}`);
+        for(let i=0; i<blizzardArray.length; i++){
+            const stats = yield axios.get(`/statsSummary?tag=${blizzardArray[i].battletag}`);
+            // Adding blizzard account id for convenience
+            stats.data.blizzardID = blizzardArray[i].id;
             statsArray.push(stats.data);
         }
 
@@ -81,20 +84,16 @@ function* getStatsArray(action){
 function* removeAccount(action){
     console.log("Inside removeAccount, action.payload:", action.payload);
     try{
-        let battleTag = action.payload;
-        const accountSummary = yield axios.get(`/statsSummary?tag=${battleTag}`);
-        console.log("Got account summary:", accountSummary);
-        // Set value of accountSummary reducer
-        yield put({
-            type: 'SET_ACCOUNT_SUMMARY',
-            payload: accountSummary.data
+        let blizzardID = action.payload;
+        // Delete by battletag. This is acceptable since battletag is a unique value
+        const response = yield axios({
+            method: 'DELETE',
+            url: `/blizzard/${blizzardID}`,
         })
     } catch (error) {
-        console.log("Error in getAccountSummary:", error);
-        alert("An error occurred. Try again, or check the FAQ for help");
+        console.log("Error in removeAccount:", error);
     }
 }
-
 
 export default function* blizzardSaga() {
     yield takeLatest('ADD_USER_ACCOUNT', addUserAccount);

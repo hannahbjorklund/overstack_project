@@ -9,7 +9,8 @@ router.get('/:id', (req, res) => {
 
     const sqlQuery = `
     SELECT "username",
-	    "battletag"
+	    "battletag",
+        "blizzard_account_id"
 	    FROM "users"
 	    JOIN "user_accounts"
 	    ON "users"."id" = "user_accounts"."user_id"
@@ -73,6 +74,40 @@ router.post('/', (req, res) => {
         })
     }).catch((error) => {
         console.log('Error in first POST query:', error);
+        res.sendStatus(500);
+    })
+})
+
+// Delete a blizzard account 
+router.delete('/:id', (req, res) => {
+    let blizzardID = req.params.id;
+
+    const sqlQuery = `
+    DELETE FROM "user_accounts"
+        WHERE "blizzard_account_id" = $1;
+    `
+
+    const sqlValues = [blizzardID];
+
+    // Delete the blizzard account from the blizzard accounts table first
+    pool.query(sqlQuery, sqlValues)
+    .then((result) => {
+        
+        const sqlQuery2 = `
+        DELETE FROM "blizzard_accounts"
+            WHERE "id" = $1;
+        `
+
+        // Delete the account from the junction table as well
+        pool.query(sqlQuery2, sqlValues)
+        .then((result) => {
+            res.sendStatus(201);
+        }).catch((error) => {
+            console.log("Error in second query in DELETE /blizzard/:id");
+            res.sendStatus(500);
+        })
+    }).catch((error) => {
+        console.log("Error in DELETE /blizzard/:id");
         res.sendStatus(500);
     })
 })

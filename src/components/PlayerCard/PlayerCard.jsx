@@ -1,10 +1,14 @@
 import React from "react";
 import './PlayerCard.css';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 // Provided with a battletag, PlayerCard will query the API for that account's stats, then render those stats
 //  in a card
 export default function PlayerCard({stats}){
+    const history = useHistory();
+    const dispatch = useDispatch();
+
     console.log("Inside PlayerCard:", stats);
     
     const myStyle = {
@@ -12,17 +16,34 @@ export default function PlayerCard({stats}){
         backgroundSize: "auto",
     };
 
-    const unlinkAccount = () => {
+    // Remove the account from db
+    const removeAccount = () => {
+        // Confirm with the user before removing the account
         if(confirm(`Are you sure you want to unlink ${stats.battletag}?`)){
             console.log("Unlinking account:", stats.battletag);
-            
+            dispatch({
+                type: 'REMOVE_ACCOUNT',
+                payload: stats.blizzardID
+            })
+            // Navigate back to the user page after successful deletion
+            history.push('/user');
+        }
+    }
+
+    // Clicking on a playercard will do different things depending on the page
+    //  the user is on. This is to handle that.
+    const handleClick = () => {
+        if(history.location.pathname == '/removeUserAccount'){
+            removeAccount();
+        } else if (history.location.pathname == '/user'){
+            console.log("You want to go to there");
         }
     }
 
     return (
         // Check to make sure the stats exist, then render the playerCard
         stats && (
-            <div className="playerCard" style={myStyle} onClick={unlinkAccount}>
+            <div className="playerCard" style={myStyle} onClick={handleClick}>
                 <div className="playerIcon">
                     <img src={stats.avatar} />
                 </div>

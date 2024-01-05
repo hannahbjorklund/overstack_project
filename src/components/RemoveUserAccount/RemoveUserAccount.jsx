@@ -8,8 +8,6 @@ function RemoveUserAccount() {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  console.log("Currently at:", history.location.pathname);
-
   const user = useSelector((store) => store.user);
   const userAccounts = useSelector((store) => store.blizzard.userAccounts);
   const statsArray = useSelector((store) => store.blizzard.statsArray);
