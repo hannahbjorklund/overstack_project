@@ -17,6 +17,10 @@ function* loginUser(action) {
     // allow the server session to recognize the user
     yield axios.post('/api/user/login', action.payload, config);
 
+    // update the last online property for the user. Using username
+    //  for the put since it is unique
+    yield axios.put(`/api/user/login/${action.payload.username}`, )
+
     // after the user has logged in
     // get the user information from the server
     yield put({ type: 'FETCH_USER' });

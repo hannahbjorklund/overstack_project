@@ -23,7 +23,6 @@ router.get('/:id', (req, res) => {
 
     pool.query(sqlQuery, sqlValues)
     .then((result) => {
-        console.log("Received some rows from the DB:", result.rows);
         res.send(result.rows);
     }).catch((error) => {
         console.log("Error in GET /blizzard/:id:", error);
@@ -51,7 +50,6 @@ router.post('/', (req, res) => {
     pool.query(addAccountQuery, addAccountValues)
     .then((result) => {
         const addedAccountID = result.rows[0].id;
-        console.log('Added blizz account ID:', addedAccountID);
 
         // Now we have to insert values into our junction table, user_accounts
         //  in order to designate a user that owns the blizzard account

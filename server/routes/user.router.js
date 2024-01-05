@@ -43,6 +43,26 @@ router.post('/login', userStrategy.authenticate('local'), (req, res) => {
   res.sendStatus(200);
 });
 
+// When a user logs in, update their last online value
+router.put('/login/:id', (req, res) => {
+  const userToUpdate = req.params.id;
+  
+  // Can user username in where statement because it is unique
+  const sqlQuery = `
+  UPDATE "users"
+    SET "last_online" = NOW()
+    WHERE "username" = $1;
+  `
+  const sqlValues = [userToUpdate];
+
+  pool.query(sqlQuery, sqlValues)
+  .then((result) => {
+    res.sendStatus(201);
+  }).catch((error) => {
+    console.log("Error in PUT /api/user/login/:id:", error);
+  })
+})
+
 // clear all server session information about this user
 router.post('/logout', (req, res) => {
   // Use passport's built-in method to log out the user
