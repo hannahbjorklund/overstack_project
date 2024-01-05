@@ -11,7 +11,7 @@ export default function LinkAccountPage() {
 
   const user = useSelector((store) => store.user);
   // Stats reducer represents the stats of the searched battletag
-  const stats = useSelector((store) => store.blizzard.accountSummary);
+  const stats = useSelector((store) => store.stats.accountSummary);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();

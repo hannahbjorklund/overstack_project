@@ -10,7 +10,7 @@ function RemoveUserAccount() {
 
   const user = useSelector((store) => store.user);
   const userAccounts = useSelector((store) => store.blizzard.userAccounts);
-  const statsArray = useSelector((store) => store.blizzard.statSummaryArray);
+  const statsArray = useSelector((store) => store.stats.statSummaryArray);
 
   useEffect(() => {
     getUserAccounts();
@@ -57,8 +57,8 @@ function RemoveUserAccount() {
         <div className='userStats'>
           <h3>Accounts Overview</h3>
           <p> Time Played: {}</p>
+          <p> Games Played: {}</p>
           <p> Win %: {}</p>
-          <p> KDA: {}</p>
         </div>
         <button className='btn'>View More Stats</button>
       </div>

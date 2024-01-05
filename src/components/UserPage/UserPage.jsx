@@ -10,8 +10,8 @@ function UserPage() {
 
   const user = useSelector((store) => store.user);
   const userAccounts = useSelector((store) => store.blizzard.userAccounts);
-  const statsArray = useSelector((store) => store.blizzard.statSummaryArray);
-  const allStatsArray = useSelector((store) => store.blizzard.allStatsArray);
+  const statsArray = useSelector((store) => store.stats.statSummaryArray);
+  const allStatsArray = useSelector((store) => store.stats.allStatsArray);
 
   useEffect(() => {
     getUserAccounts();
@@ -22,6 +22,7 @@ function UserPage() {
     getStatSummaryArray();
   }, [userAccounts]);
 
+  // Ensure userAccounts has been populated before getting all stats
   useEffect(() => {
     getAllStatsArray();
   }, [userAccounts]);
@@ -59,6 +60,12 @@ function UserPage() {
     });
   }
 
+  function compileStats() {
+    dispatch({
+      
+    })
+  }
+
   return (
     <div className="profileContainer">
       <div className="infoContainer">
@@ -73,8 +80,8 @@ function UserPage() {
         <div className='userStats'>
           <h3>Accounts Overview</h3>
           <p> Time Played: {}</p>
+          <p> Games Played: {}</p>
           <p> Win %: {}</p>
-          <p> KDA: {}</p>
         </div>
         <button className='btn'>View More Stats</button>
       </div>
