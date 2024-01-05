@@ -10,7 +10,7 @@ const passport = require('./strategies/user.strategy');
 // Route includes
 const userRouter = require('./routes/user.router');
 const blizzardRouter = require('./routes/blizzard.router');
-const statsSummaryRouter = require('./routes/statsSummary.router');
+const statsRouter = require('./routes/stats.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -26,7 +26,7 @@ app.use(passport.session());
 /* Routes */
 app.use('/api/user', userRouter);
 app.use('/blizzard', blizzardRouter);
-app.use('/statsSummary', statsSummaryRouter);
+app.use('/stats', statsRouter);
 
 // Serve static files
 app.use(express.static('build'));

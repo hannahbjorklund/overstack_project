@@ -46,7 +46,7 @@ function* getUserAccounts(action){
 function* getAccountSummary(action){
     try{
         let battleTag = action.payload;
-        const accountSummary = yield axios.get(`/statsSummary?tag=${battleTag}`);
+        const accountSummary = yield axios.get(`/stats/summary?tag=${battleTag}`);
         console.log("Got account summary:", accountSummary);
         // Set value of accountSummary reducer
         yield put({
@@ -65,7 +65,7 @@ function* getStatSummaryArray(action){
         let blizzardArray = action.payload;
         let statsArray = [];
         for(let i=0; i<blizzardArray.length; i++){
-            const stats = yield axios.get(`/statsSummary?tag=${blizzardArray[i].battletag}`);
+            const stats = yield axios.get(`/stats/summary?tag=${blizzardArray[i].battletag}`);
             // Adding blizzard account id for convenience
             stats.data.blizzardID = blizzardArray[i].id;
             statsArray.push(stats.data);
@@ -99,7 +99,7 @@ function* getAllStatsArray(action){
         let blizzardArray = action.payload;
         let allStatsArray = [];
         for(let i=0; i<blizzardArray.length; i++){
-            const stats = yield axios.get(`/statsSummary?tag=${blizzardArray[i].battletag}`);
+            const stats = yield axios.get(`/stats/all?tag=${blizzardArray[i].battletag}`);
             allStatsArray.push(stats.data);
         }
         yield put({
