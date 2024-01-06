@@ -93,7 +93,14 @@ function UserPage() {
           </>
           }
         </div>
-        <button className='btn'>View More Stats</button>
+        <button 
+          className='btn'
+          onClick={() => {
+            history.push(`/userStats`);
+          }}
+        >
+          View More Stats
+        </button>
       </div>
 
       <div className = 'accountsSection'>

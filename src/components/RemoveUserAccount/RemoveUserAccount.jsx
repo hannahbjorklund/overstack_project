@@ -94,7 +94,12 @@ function RemoveUserAccount() {
             </>
           }
         </div>
-        <button className='btn'>View More Stats</button>
+        <button 
+          className='btnDisabled' 
+          disabled={true}
+        >
+          View More Stats
+        </button>
       </div>
 
       <div className = 'accountsSection'>

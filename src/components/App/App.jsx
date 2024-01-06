@@ -17,6 +17,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import LinkAccountPage from '../LinkAccountPage/LinkAccountPage';
 import RemoveUserAccount from '../RemoveUserAccount/RemoveUserAccount';
+import UserStats from '../UserStats/UserStats';
 
 import './App.css';
 
@@ -68,6 +69,12 @@ function App() {
             exact path='/removeUserAccount'>
               <RemoveUserAccount/>
           </ProtectedRoute>
+
+          <ProtectedRoute
+            exact path='/userStats'>
+              <UserStats/>
+          </ProtectedRoute>
+
 
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
