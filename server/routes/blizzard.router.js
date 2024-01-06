@@ -1,10 +1,12 @@
 const express = require('express');
 const pool = require('../modules/pool');
+const {
+    rejectUnauthenticated,
+} = require('../modules/authentication-middleware');
 const router = express.Router();
-const axios = require('axios');
 
 // Get the blizzard accounts owned by the given user 
-router.get('/:id', (req, res) => {
+router.get('/:id', rejectUnauthenticated, (req, res) => {
     let userID = req.params.id;
 
     const sqlQuery = `
@@ -31,7 +33,7 @@ router.get('/:id', (req, res) => {
 })
 
 // Add a new blizzard account to the database
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
     let battletag = req.body.battletag;
     let userID = req.body.userID;
     
@@ -77,7 +79,7 @@ router.post('/', (req, res) => {
 })
 
 // Delete a blizzard account 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
     let blizzardID = req.params.id;
 
     const sqlQuery = `

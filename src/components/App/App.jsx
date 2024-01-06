@@ -18,13 +18,13 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import LinkAccountPage from '../LinkAccountPage/LinkAccountPage';
 import RemoveUserAccount from '../RemoveUserAccount/RemoveUserAccount';
 import UserStats from '../UserStats/UserStats';
-
+import AdminPage from '../AdminPage/AdminPage';
 import './App.css';
 
 function App() {
   const dispatch = useDispatch();
 
-  const user = useSelector(store => store.user);
+  const user = useSelector(store => store.user.userReducer);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
@@ -97,6 +97,10 @@ function App() {
               <LoginPage />
             }
           </Route>
+
+          <ProtectedRoute>
+            <AdminPage/>
+          </ProtectedRoute>
 
           <Route
             exact

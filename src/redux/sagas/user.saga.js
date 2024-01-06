@@ -24,8 +24,24 @@ function* fetchUser() {
   }
 }
 
+function* getUsers() {
+  try {
+    const config = {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true,
+    };
+
+    const response = yield axios.get('/api/user/all', config);
+
+    yield put({ type: 'SET_USERS', payload: response.data });
+  } catch (error) {
+    console.log('User get request failed', error);
+  }
+}
+
 function* userSaga() {
   yield takeLatest('FETCH_USER', fetchUser);
+  yield takeLatest('GET_USERS', getUsers);
 }
 
 export default userSaga;

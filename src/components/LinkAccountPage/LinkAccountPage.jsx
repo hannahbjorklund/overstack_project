@@ -9,7 +9,7 @@ export default function LinkAccountPage() {
   const [nameInput, setNameInput] = useState("");
   const [tagInput, setTagInput] = useState("");
 
-  const user = useSelector((store) => store.user);
+  const user = useSelector((store) => store.user.userReducer);
   // Stats reducer represents the stats of the searched battletag
   const stats = useSelector((store) => store.stats.accountSummary);
 

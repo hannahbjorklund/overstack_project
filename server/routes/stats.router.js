@@ -1,10 +1,12 @@
 const express = require("express");
-const pool = require("../modules/pool");
+const {
+  rejectUnauthenticated,
+} = require('../modules/authentication-middleware');
 const router = express.Router();
 const axios = require("axios");
 
 // Given a battletag, query the API for that player's stats summary
-router.get("/summary", (req, res) => {
+router.get("/summary", rejectUnauthenticated, (req, res) => {
   const tag = req.query.tag;
   axios({
     method: "GET",
@@ -22,7 +24,7 @@ router.get("/summary", (req, res) => {
 });
 
 // Given a battletag, query the API for that player's in-depth total stats by gamemode
-router.get("/all", (req, res) => {
+router.get("/all", rejectUnauthenticated, (req, res) => {
   const tag = req.query.tag;
   axios({
     method: "GET",

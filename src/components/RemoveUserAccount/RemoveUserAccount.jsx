@@ -8,7 +8,7 @@ function RemoveUserAccount() {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const user = useSelector((store) => store.user);
+  const user = useSelector((store) => store.user.userReducer);
   const userAccounts = useSelector((store) => store.blizzard.userAccounts);
   const statsArray = useSelector((store) => store.stats.statSummaryArray);
   const allStatsArray = useSelector((store) => store.stats.allStatsArray);

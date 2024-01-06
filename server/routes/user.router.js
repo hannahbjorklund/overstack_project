@@ -15,6 +15,23 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   res.send(req.user);
 });
 
+// Get a list of all users if the user is authenticated and an admin
+router.get('/all', rejectUnauthenticated, (req, res) => {
+  if(req.user.is_admin){
+    const sqlQuery = `
+      SELECT * FROM "users";
+    `
+
+    pool.query(sqlQuery)
+    .then((result) => {
+      res.send(result.rows);
+    }).catch((error) => {
+      console.log("Error in GET /api/user/all:", error);
+      res.sendStatus(500);
+    })
+  }
+})
+
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
