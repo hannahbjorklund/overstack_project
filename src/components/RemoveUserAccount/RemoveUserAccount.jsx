@@ -11,6 +11,8 @@ function RemoveUserAccount() {
   const user = useSelector((store) => store.user);
   const userAccounts = useSelector((store) => store.blizzard.userAccounts);
   const statsArray = useSelector((store) => store.stats.statSummaryArray);
+  const allStatsArray = useSelector((store) => store.stats.allStatsArray);
+  const compiledStats = useSelector((store) => store.stats.compiledStats);
 
   useEffect(() => {
     getUserAccounts();
@@ -20,6 +22,15 @@ function RemoveUserAccount() {
   useEffect(() => {
     getStatSummaryArray();
   }, [userAccounts]);
+
+  // Ensure userAccounts has been populated before getting all stats
+  useEffect(() => {
+    getAllStatsArray();
+  }, [userAccounts]);
+
+  useEffect(() => {
+    compileStats();
+  }, [allStatsArray]);
 
   // Get a list of the user's linked accounts by dispatching
   function getUserAccounts() {
@@ -43,6 +54,25 @@ function RemoveUserAccount() {
     });
   }
 
+  // Grab more stats, some of which will be displayed in the user info section
+  function getAllStatsArray() {
+    let blizzArray = [];
+    userAccounts.map((x) => {
+      blizzArray.push({battletag: x.battletag, id: x.blizzard_account_id});
+    });
+    dispatch({
+      type: "GET_ALL_STATS_ARRAY",
+      payload: blizzArray,
+    });
+  }
+
+  function compileStats() {
+    dispatch({
+      type: 'COMPILE_STATS',
+      payload: allStatsArray
+    })
+  }
+
   return (
     <div className="profileContainer">
       <div className="infoContainer">
@@ -55,10 +85,14 @@ function RemoveUserAccount() {
           <p> Created: {user.created_at} 🎂</p>
         </div>
         <div className='userStats'>
-          <h3>Accounts Overview</h3>
-          <p> Time Played: {}</p>
-          <p> Games Played: {}</p>
-          <p> Win %: {}</p>
+          {compiledStats.total &&
+            <>
+              <h3>Accounts Overview</h3>
+              <p> Time Played: {Math.floor(compiledStats.total.game.time_played/60/60)} hours</p>
+              <p> Games Played: {compiledStats.total.game.games_played}</p>
+              <p> Win Percentage: {Math.floor(100*(compiledStats.total.game.games_won)/(compiledStats.total.game.games_played))}%</p>
+            </>
+          }
         </div>
         <button className='btn'>View More Stats</button>
       </div>

@@ -4,7 +4,6 @@ import { combineReducers } from 'redux';
 const accountSummary = (state = {}, action) => {
     switch (action.type) {
       case 'SET_ACCOUNT_SUMMARY':
-        console.log("Setting account summary reducer:", action.payload);
         return action.payload;
       default:
         return state;
@@ -31,8 +30,19 @@ const allStatsArray = (state = [], action) => {
     }
 }
 
+// Store an object containing total stats of an array of multiple accounts
+const compiledStats = (state = {}, action) => {
+  switch (action.type) {
+    case 'SET_COMPILED_STATS':
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
     accountSummary,
     statSummaryArray,
-    allStatsArray
+    allStatsArray,
+    compiledStats
 });

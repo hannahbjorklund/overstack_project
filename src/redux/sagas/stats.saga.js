@@ -60,9 +60,44 @@ function* getAllStatsArray(action){
 function* compileStats(action){
     try{
         let statsArray = action.payload;
-        let totalStats = {};
+        let compiledGame = {};
+        let compiledCombat = {};
         
-        // Add up quickplay stats first
+        // For each object in the array
+        for(let object of statsArray){
+            if(object.total){
+                // If statement will exclude profiles without stats from being added
+                let totalGame = object.total.all_heroes.game;
+                let totalCombat = object.total.all_heroes.combat;
+                for(let property in totalGame){
+                    if(compiledGame[property]){
+                        compiledGame[property] += totalGame[property];
+                    } else {
+                        compiledGame[property] = totalGame[property];
+                    }
+                }
+                for(let property in totalCombat){
+                    if(compiledCombat[property]){
+                        compiledCombat[property] += totalCombat[property];
+                    } else {
+                        compiledCombat[property] = totalCombat[property];
+                    }
+                }
+            }
+        }
+
+        let compiledStats = {
+            total: {
+                game: compiledGame,
+                combat: compiledCombat
+            }
+        }
+
+        yield put({
+            type: 'SET_COMPILED_STATS',
+            payload: compiledStats
+        })
+
     } catch (error) {
         console.log("Error in compileStats:", error);
     }

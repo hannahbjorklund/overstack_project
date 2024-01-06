@@ -12,6 +12,7 @@ function UserPage() {
   const userAccounts = useSelector((store) => store.blizzard.userAccounts);
   const statsArray = useSelector((store) => store.stats.statSummaryArray);
   const allStatsArray = useSelector((store) => store.stats.allStatsArray);
+  const compiledStats = useSelector((store) => store.stats.compiledStats);
 
   useEffect(() => {
     getUserAccounts();
@@ -26,6 +27,10 @@ function UserPage() {
   useEffect(() => {
     getAllStatsArray();
   }, [userAccounts]);
+
+  useEffect(() => {
+    compileStats();
+  }, [allStatsArray]);
 
   // Get a list of the user's linked accounts by dispatching
   function getUserAccounts() {
@@ -62,7 +67,8 @@ function UserPage() {
 
   function compileStats() {
     dispatch({
-      
+      type: 'COMPILE_STATS',
+      payload: allStatsArray
     })
   }
 
@@ -78,10 +84,14 @@ function UserPage() {
           <p> Created: {user.created_at} 🎂</p>
         </div>
         <div className='userStats'>
-          <h3>Accounts Overview</h3>
-          <p> Time Played: {}</p>
-          <p> Games Played: {}</p>
-          <p> Win %: {}</p>
+          {compiledStats.total &&
+          <>
+            <h3>Accounts Overview</h3>
+            <p> Time Played: {Math.floor(compiledStats.total.game.time_played/60/60)} hours</p>
+            <p> Games Played: {compiledStats.total.game.games_played}</p>
+            <p> Win Percentage: {Math.floor(100*(compiledStats.total.game.games_won)/(compiledStats.total.game.games_played))}%</p>
+          </>
+          }
         </div>
         <button className='btn'>View More Stats</button>
       </div>
