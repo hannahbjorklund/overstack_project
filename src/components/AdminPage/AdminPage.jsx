@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
+import './AdminPage.css';
 
 export default function AdminPage(){
     const user = useSelector((store) => store.user.userReducer);
@@ -16,12 +17,18 @@ export default function AdminPage(){
         })
     }
 
-    const deleteUser = () => {
-
+    const deleteUser = (userID) => {
+        dispatch({
+            type: 'DELETE_USER',
+            payload: userID
+        })
     }
 
-    const promoteUser = () => {
-
+    const updateUser = (userID) => {
+        dispatch({
+            type: 'UPDATE_USER',
+            payload: userID
+        })
     }
 
     users && console.log(users);
@@ -29,6 +36,8 @@ export default function AdminPage(){
         <div className='container'>
             {(!user.is_admin) && <h1>Not Authorized</h1>}
             {(user.is_admin) && 
+            <>
+            <h1>All Users</h1>
             <table>
                 <thead>
                     <tr>
@@ -38,7 +47,7 @@ export default function AdminPage(){
                         <th>last_online</th>
                         <th>is_admin</th>
                         <th>delete user</th>
-                        <th>promote user</th>
+                        <th>promote/demote user</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,13 +59,15 @@ export default function AdminPage(){
                                 <td>{x.created_at}</td>
                                 <td>{x.last_online}</td>
                                 <td>{`${x.is_admin}`}</td>
-                                <td><button>x</button></td>
-                                <td><button>^</button></td>
+                                <td><button onClick = {() => deleteUser(x.id)} className='btn'>x</button></td>
+                                {x.is_admin ? <td><button onClick = {() => updateUser(x.id)} className='btn'>demote</button></td> : 
+                                <td><button onClick = {() => updateUser(x.id)} className='btn'>promote</button></td>}
                             </tr>
                         );
                     })}
                 </tbody>
             </table>
+            </>
             }
         </div>
     )

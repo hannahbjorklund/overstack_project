@@ -19,7 +19,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 router.get('/all', rejectUnauthenticated, (req, res) => {
   if(req.user.is_admin){
     const sqlQuery = `
-      SELECT * FROM "users";
+      SELECT * FROM "users"
+        ORDER BY "id";
     `
 
     pool.query(sqlQuery)
@@ -27,6 +28,49 @@ router.get('/all', rejectUnauthenticated, (req, res) => {
       res.send(result.rows);
     }).catch((error) => {
       console.log("Error in GET /api/user/all:", error);
+      res.sendStatus(500);
+    })
+  }
+})
+
+// Allow an admin to delete a user
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
+  const userID = req.params.id;
+  if(req.user.is_admin){
+    const sqlQuery = `
+      DELETE FROM "users"
+        WHERE "id" = $1;
+    `
+
+    const sqlValues = [userID];
+
+    pool.query(sqlQuery, sqlValues)
+    .then((result) => {
+      res.sendStatus(201);
+    }).catch((error) => {
+      console.log("Error in DELETE /api/user/:id:", error);
+      res.sendStatus(500);
+    })
+  }
+})
+
+// Allow an admin to promote another user to admin
+router.put('/:id', rejectUnauthenticated, (req, res) => {
+  const userID = req.params.id;
+  if(req.user.is_admin){
+    const sqlQuery = `
+      UPDATE "users"
+        SET is_admin = NOT is_admin 
+        WHERE "id" = $1;
+    `
+
+    const sqlValues = [userID];
+
+    pool.query(sqlQuery, sqlValues)
+    .then((result) => {
+      res.sendStatus(201);
+    }).catch((error) => {
+      console.log("Error in PUT /api/user/:id:", error);
       res.sendStatus(500);
     })
   }

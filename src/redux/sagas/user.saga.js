@@ -39,9 +39,46 @@ function* getUsers() {
   }
 }
 
+function* deleteUser(action) {
+  let userID = action.payload;
+  if(confirm(`Are you sure you want to delete user with ID ${userID}?`)){
+    try {
+      const config = {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true,
+      };
+  
+      const response = yield axios.delete(`/api/user/${userID}`, config);
+  
+      yield put({ type: 'GET_USERS' });
+    } catch (error) {
+      console.log('User DELETE request failed', error);
+    
+    }
+  }
+}
+
+function* updateUser(action) {
+  try {
+    const config = {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true,
+    };
+
+    let userID = action.payload;
+    const response = yield axios.put(`/api/user/${userID}`, config);
+
+    yield put({ type: 'GET_USERS' });
+  } catch (error) {
+    console.log('User PUT request failed', error);
+  }
+}
+
 function* userSaga() {
   yield takeLatest('FETCH_USER', fetchUser);
   yield takeLatest('GET_USERS', getUsers);
+  yield takeLatest('UPDATE_USER', updateUser);
+  yield takeLatest('DELETE_USER', deleteUser);
 }
 
 export default userSaga;
