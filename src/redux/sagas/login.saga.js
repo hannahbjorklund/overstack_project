@@ -3,6 +3,7 @@ import axios from 'axios';
 
 // worker Saga: will be fired on "LOGIN" actions
 function* loginUser(action) {
+  console.log("In loginUser saga:", action.payload);
   try {
     // clear any existing error on the login page
     yield put({ type: 'CLEAR_LOGIN_ERROR' });
@@ -41,6 +42,7 @@ function* loginUser(action) {
 
 // worker Saga: will be fired on "LOGOUT" actions
 function* logoutUser(action) {
+  console.log("In logoutUser saga:", action.payload);
   try {
     const config = {
       headers: { 'Content-Type': 'application/json' },

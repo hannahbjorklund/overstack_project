@@ -1,10 +1,11 @@
 import React from 'react';
 import LoginForm from '../LoginForm/LoginForm';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import './LoginPage.css'
 
 function LoginPage() {
   const history = useHistory();
+  console.log("In login page")
 
   return (
     <div>

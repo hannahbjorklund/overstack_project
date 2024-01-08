@@ -88,7 +88,8 @@ function App() {
             exact
             path="/login"
           >
-            {user.id ?
+            {
+              user.id ?
               // If the user is already logged in, 
               // redirect to the /user page
               <Redirect to="/user" />

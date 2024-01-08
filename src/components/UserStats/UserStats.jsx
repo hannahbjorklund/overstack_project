@@ -8,6 +8,7 @@ export default function UserStats(){
     const userAccounts = useSelector((store) => store.blizzard.userAccounts);
     const allStatsArray = useSelector((store) => store.stats.allStatsArray);
     const [currentContent, setCurrentContent] = useState("Total");
+    const [currentHero, setCurrentHero] = useState("");
 
     const dispatch = useDispatch();
 
@@ -92,6 +93,20 @@ export default function UserStats(){
                                 </div>
                                 <div className='heroStats'>
                                     <h3 className='category'>Top 3 Heroes</h3>
+                                    <select value={currentHero} onChange = {(e) => {setCurrentHero(e.target.value)}}>
+                                        <option value='Kiriko'>Kiriko</option>
+                                        <option value='Brig'>Brig</option>
+                                        <option value='Ana'>Ana</option>
+                                    </select>
+                                    {
+                                        (currentHero == 'Kiriko') && <p>Kiriko</p>
+                                    }
+                                    {
+                                        (currentHero == 'Brig') && <p>Brig</p>
+                                    }
+                                    {
+                                        (currentHero == 'Ana') && <p>Ana</p>
+                                    }
                                 </div>
                             </div>
                         }
@@ -125,6 +140,20 @@ export default function UserStats(){
                                 </div>
                                 <div className='heroStats'>
                                     <h3 className='category'>Top 3 Heroes</h3>
+                                    <select value={currentHero} onChange = {(e) => {setCurrentHero(e.target.value)}}>
+                                        <option value='Kiriko'>Kiriko</option>
+                                        <option value='Brig'>Brig</option>
+                                        <option value='Ana'>Ana</option>
+                                    </select>
+                                    {
+                                        (currentHero == 'Kiriko') && <p>Kiriko</p>
+                                    }
+                                    {
+                                        (currentHero == 'Brig') && <p>Brig</p>
+                                    }
+                                    {
+                                        (currentHero == 'Ana') && <p>Ana</p>
+                                    }
                                 </div>
                             </div>
                         }

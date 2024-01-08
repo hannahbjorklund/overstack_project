@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 
 const userReducer = (state = {}, action) => {
+  console.log("userReducer accessed:", action.payload);
   switch (action.type) {
     case 'SET_USER':
       return action.payload;
@@ -12,6 +13,7 @@ const userReducer = (state = {}, action) => {
 };
 
 const users = (state = [], action) => {
+  console.log("users reducer accessed");
   switch (action.type) {
     case 'SET_USERS':
       return action.payload;

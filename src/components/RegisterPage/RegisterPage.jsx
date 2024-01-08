@@ -6,6 +6,7 @@ import './RegisterPage.css';
 
 function RegisterPage() {
   const history = useHistory();
+  console.log("Im in register!")
 
   return (
     <div>
@@ -14,7 +15,8 @@ function RegisterPage() {
       <center>
         <div 
           className = 'loginLink'
-          onClick={() => {history.push('/login');}}>
+          onClick={() => {history.push('/login');}}
+          >
           Back to Login
         </div>
       </center>

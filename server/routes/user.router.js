@@ -11,12 +11,13 @@ const router = express.Router();
 // Handles Ajax request for user information if user is authenticated
 router.get('/', rejectUnauthenticated, (req, res) => {
   // Send back user object from the session (previously queried from the database)
-  console.log("in GET /user");
+  console.log("in GET /api/user");
   res.send(req.user);
 });
 
 // Get a list of all users if the user is authenticated and an admin
 router.get('/all', rejectUnauthenticated, (req, res) => {
+  console.log("In /api/user/all")
   if(req.user.is_admin){
     const sqlQuery = `
       SELECT * FROM "users"
@@ -35,6 +36,7 @@ router.get('/all', rejectUnauthenticated, (req, res) => {
 
 // Allow an admin to delete a user
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
+  
   const userID = req.params.id;
   if(req.user.is_admin){
     const sqlQuery = `
@@ -106,6 +108,7 @@ router.post('/login', userStrategy.authenticate('local'), (req, res) => {
 
 // When a user logs in, update their last online value
 router.put('/login/:id', (req, res) => {
+  console.log("In /api/user/login/:id")
   const userToUpdate = req.params.id;
   
   // Can user username in where statement because it is unique

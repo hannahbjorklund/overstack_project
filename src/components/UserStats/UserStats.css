@@ -18,5 +18,9 @@
 }
 
 .category{
-  color: rgb(207, 107, 1);
+  color: rgb(255, 132, 0);
+}
+
+.option{
+  width: 5em;
 }
