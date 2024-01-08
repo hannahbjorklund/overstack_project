@@ -11,3 +11,12 @@
     margin-top: 1em;
     font-size: x-large;
 }
+
+.statsBox{
+  display: flex;
+  justify-content: space-between;
+}
+
+.category{
+  color: rgb(207, 107, 1);
+}

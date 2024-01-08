@@ -62,6 +62,8 @@ function* compileStats(action){
         let statsArray = action.payload;
         let compiledGame = {};
         let compiledCombat = {};
+        let compiledCompGame = {};
+        let compiledCompCombat = {};
         
         // For each object in the array
         for(let object of statsArray){
@@ -86,10 +88,37 @@ function* compileStats(action){
             }
         }
 
+        // Adding up competitive stats only
+        for(let object of statsArray){
+            if(object.competitive){
+                let compGame = object.competitive.all_heroes.game;
+                let compCombat = object.competitive.all_heroes.combat;
+                for(let property in compGame){
+                    if(compiledCompGame[property]){
+                        compiledCompGame[property] += compGame[property];
+                    } else {
+                        compiledCompGame[property] = compGame[property];
+                    }
+                }
+
+                for(let property in compCombat){
+                    if(compiledCompCombat[property]){
+                        compiledCompCombat[property] += compCombat[property];
+                    } else {
+                        compiledCompCombat[property] = compCombat[property];
+                    }
+                }
+            }
+        }
+
         let compiledStats = {
             total: {
                 game: compiledGame,
                 combat: compiledCombat
+            },
+            competitive: {
+                game: compiledCompGame,
+                combat: compiledCompCombat
             }
         }
 
@@ -101,6 +130,10 @@ function* compileStats(action){
     } catch (error) {
         console.log("Error in compileStats:", error);
     }
+}
+
+function* getCompiledStats(){
+    
 }
 
 export default function* statsSaga() {
