@@ -64,6 +64,8 @@ function* compileStats(action){
         let compiledCombat = {};
         let compiledCompGame = {};
         let compiledCompCombat = {};
+        let compiledQPGame = {};
+        let compiledQPCombat = {};
         
         // For each object in the array
         for(let object of statsArray){
@@ -111,6 +113,29 @@ function* compileStats(action){
             }
         }
 
+        // Adding up unranked stats only
+        for(let object of statsArray){
+            if(object.quickplay){
+                let qpGame = object.quickplay.all_heroes.game;
+                let qpCombat = object.quickplay.all_heroes.combat;
+                for(let property in qpGame){
+                    if(compiledQPGame[property]){
+                        compiledQPGame[property] += qpGame[property];
+                    } else {
+                        compiledQPGame[property] = qpGame[property];
+                    }
+                }
+
+                for(let property in qpCombat){
+                    if(compiledQPCombat[property]){
+                        compiledQPCombat[property] += qpCombat[property];
+                    } else {
+                        compiledQPCombat[property] = qpCombat[property];
+                    }
+                }
+            }
+        }
+
         let compiledStats = {
             total: {
                 game: compiledGame,
@@ -119,6 +144,10 @@ function* compileStats(action){
             competitive: {
                 game: compiledCompGame,
                 combat: compiledCompCombat
+            },
+            quickplay: {
+                game: compiledQPGame,
+                combat: compiledQPCombat
             }
         }
 

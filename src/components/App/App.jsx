@@ -99,7 +99,7 @@ function App() {
             }
           </Route>
 
-          <ProtectedRoute>
+          <ProtectedRoute exact path = '/admin'>
             <AdminPage/>
           </ProtectedRoute>
 

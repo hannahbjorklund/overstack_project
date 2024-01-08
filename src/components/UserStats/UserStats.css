@@ -18,9 +18,14 @@
 }
 
 .category{
-  color: rgb(255, 132, 0);
+  color: rgb(220, 116, 4);
 }
 
 .option{
   width: 5em;
 }
+
+.title{
+  font-size: xxx-large;
+}
+

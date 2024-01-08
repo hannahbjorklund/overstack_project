@@ -24,7 +24,7 @@ router.get("/summary", rejectUnauthenticated, (req, res) => {
 });
 
 // Given a battletag, query the API for that player's in-depth total stats by gamemode
-router.get("/all", rejectUnauthenticated, (req, res) => {
+router.get("/all", (req, res) => {
   const tag = req.query.tag;
   axios({
     method: "GET",
@@ -59,9 +59,26 @@ router.get("/all", rejectUnauthenticated, (req, res) => {
           all_heroes: {
             game: qpGame,
             combat: qpCombat
+          },
+          heroes: {
+
           }
         }
-        
+
+        // Adding top 3 heroes stats to quickplay
+        for(let i=0; i<3; i++){
+          // Grab hero
+          let hero = rawStats.quickplay.heroes_comparisons.time_played.values[i].hero;
+          allStats.quickplay.heroes[hero] = {
+            time_played: rawStats.quickplay.heroes_comparisons.time_played.values[i].value
+          }
+          // Populating more stats for top 3 heroes
+          allStats.quickplay.heroes[hero][rawStats.quickplay.career_stats[hero][0].category] = rawStats.quickplay.career_stats[hero][0].stats;
+          allStats.quickplay.heroes[hero][rawStats.quickplay.career_stats[hero][3].category] = rawStats.quickplay.career_stats[hero][3].stats;
+          allStats.quickplay.heroes[hero][rawStats.quickplay.career_stats[hero][4].category] = rawStats.quickplay.career_stats[hero][4].stats;
+          
+        }
+
         // Repeat the same process for competitive stats
         let compGame = {};
         let compCombat = {};
@@ -74,12 +91,31 @@ router.get("/all", rejectUnauthenticated, (req, res) => {
 
         qpCombat.healing_done = rawStats.quickplay.career_stats['all-heroes'][4].stats[1].value;
         compCombat.healing_done = rawStats.competitive.career_stats['all-heroes'][4].stats[1].value;
+        qpCombat.assists = rawStats.quickplay.career_stats['all-heroes'][4].stats[3].value;
+        compCombat.assists = rawStats.competitive.career_stats['all-heroes'][4].stats[3].value;
 
         allStats.competitive = {
           all_heroes: {
             game: compGame,
             combat: compCombat
+          },
+          heroes: {
+
           }
+        }
+
+        // Adding in top 3 comp heroes
+        // Adding top 3 heroes stats to quickplay
+        for(let i=0; i<3; i++){
+          // Grab hero
+          let hero = rawStats.competitive.heroes_comparisons.time_played.values[i].hero;
+          allStats.competitive.heroes[hero] = {
+            time_played: rawStats.competitive.heroes_comparisons.time_played.values[i].value
+          }
+          // Populating more stats for top 3 heroes
+          allStats.competitive.heroes[hero][rawStats.competitive.career_stats[hero][0].category] = rawStats.competitive.career_stats[hero][0].stats;
+          allStats.competitive.heroes[hero][rawStats.competitive.career_stats[hero][3].category] = rawStats.competitive.career_stats[hero][3].stats;
+          allStats.competitive.heroes[hero][rawStats.competitive.career_stats[hero][4].category] = rawStats.competitive.career_stats[hero][4].stats;
         }
 
         // Making a new property to store total states, aka
@@ -103,6 +139,8 @@ router.get("/all", rejectUnauthenticated, (req, res) => {
             combat: totalCombat
           }
         }
+
+        
       } 
       res.send(allStats);
     })
