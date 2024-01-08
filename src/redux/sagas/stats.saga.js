@@ -161,8 +161,18 @@ function* compileStats(action){
     }
 }
 
-function* getCompiledStats(){
-    
+function* getAllPlayerStats(action){
+    try{
+        let battleTag = action.payload;
+        const allPlayerStats = yield axios.get(`/stats/all?tag=${battleTag}`);
+        // Set value of allPlayerStats reducer
+        yield put({
+            type: 'SET_ALL_PLAYER_STATS',
+            payload: allPlayerStats.data
+        })
+    } catch (error) {
+        console.log("Error in getAllPlayerStats:", error);
+    }
 }
 
 export default function* statsSaga() {
@@ -170,4 +180,5 @@ export default function* statsSaga() {
     yield takeLatest('GET_STAT_SUMMARY_ARRAY', getStatSummaryArray);
     yield takeLatest('GET_ALL_STATS_ARRAY', getAllStatsArray);
     yield takeLatest('COMPILE_STATS', compileStats);
+    yield takeLatest('GET_ALL_PLAYER_STATS', getAllPlayerStats);
 }

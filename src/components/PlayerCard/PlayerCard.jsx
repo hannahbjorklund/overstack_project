@@ -35,6 +35,7 @@ export default function PlayerCard({stats}){
             removeAccount();
         } else if (history.location.pathname == '/user'){
             console.log("You want to go to there");
+            history.push(`/accountStats/${stats.battletag}`);
         }
     }
 

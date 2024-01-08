@@ -19,6 +19,7 @@ import LinkAccountPage from '../LinkAccountPage/LinkAccountPage';
 import RemoveUserAccount from '../RemoveUserAccount/RemoveUserAccount';
 import UserStats from '../UserStats/UserStats';
 import AdminPage from '../AdminPage/AdminPage';
+import AccountStats from '../AccountStats/AccountStats';
 import './App.css';
 
 function App() {
@@ -101,6 +102,10 @@ function App() {
 
           <ProtectedRoute exact path = '/admin'>
             <AdminPage/>
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path = '/accountStats/:player'>
+            <AccountStats/>
           </ProtectedRoute>
 
           <Route
