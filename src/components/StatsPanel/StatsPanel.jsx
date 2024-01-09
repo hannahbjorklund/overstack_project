@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import HeroPanel from '../HeroPanel/HeroPanel';
 
 
-export default function StatsPanel({compiledStats}){
+export default function StatsPanel({compiledStats, totalStats}){
     const [currentContent, setCurrentContent] = useState("Total");
+    const history = useHistory();
 
     const openTab = (e, tabID) => {
         e.preventDefault();
@@ -74,6 +77,13 @@ export default function StatsPanel({compiledStats}){
                                     <p>Objective Time: {Math.floor(compiledStats.competitive.combat.objective_time/60/60)} hours</p>
                                     <p>Objective Contest Time: {Math.floor(compiledStats.competitive.combat.objective_contest_time/60/60)} hours</p>
                                 </div>
+                                {
+                                    history.location.pathname != '/userStats' &&
+                                    <div className = 'heroBox'>
+                                        <h3 className='category'>Top 3 Heroes</h3>
+                                        <HeroPanel stats={totalStats}/>
+                                    </div>
+                                }
                             </div>
                         }
                     </div>

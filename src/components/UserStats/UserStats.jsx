@@ -58,14 +58,7 @@ export default function UserStats(){
                 {
                     compiledStats.total && <StatsPanel compiledStats = {compiledStats}/>
                 }
-                {userAccounts && 
-                    <div className='accountBox'>
-                        <h3 className='category'>Accounts Included in Calculations:</h3>
-                        {userAccounts.map((x) => {
-                            return <p key={x.id}>{x.battletag}</p>
-                        })}
-                    </div>
-                }
+                
             </div>
         </div>
     )

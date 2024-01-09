@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import StatsPanel from "../StatsPanel/StatsPanel";
+import HeroPanel from "../HeroPanel/HeroPanel";
 import './AccountStats.css';
 
 export default function AccountStats(){
@@ -66,12 +67,8 @@ export default function AccountStats(){
                 <div className = 'box'>
                     {
                         playerStats.total && <StatsPanel compiledStats = {{competitive: playerStats.competitive.all_heroes,
-                        quickplay: playerStats.quickplay.all_heroes, total: playerStats.total.all_heroes}}/>
+                        quickplay: playerStats.quickplay.all_heroes, total: playerStats.total.all_heroes}} totalStats={playerStats}/>
                     }
-                    <div className = 'heroBox'>
-                        <h3 className='category'>Top 3 Heroes</h3>
-                        
-                    </div>
                 </div>
             </div>
         </div>

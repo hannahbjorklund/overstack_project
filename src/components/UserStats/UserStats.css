@@ -3,7 +3,7 @@
   background-color: rgba(203, 200, 200, 0.5);
   border-radius: 10px;
   padding: 20px;
-  display: flex;
+  
 }
 
 .tabContent{
@@ -15,7 +15,9 @@
 
 .statsBox{
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  width: auto;
+  gap: 5em;
 }
 
 .category{
@@ -31,7 +33,7 @@
 }
 
 .statPanel {
-  width: 50vw;
+  width: auto;
 }
 
 .accountBox {
