@@ -44,7 +44,6 @@ function* getUserAccounts(action){
 
 // Delete a blizzard account from the database
 function* removeAccount(action){
-    console.log("Inside removeAccount, action.payload:", action.payload);
     try{
         let blizzardID = action.payload;
         // Delete by battletag. This is acceptable since battletag is a unique value

@@ -1,11 +1,10 @@
 import { combineReducers } from "redux";
 
 const userReducer = (state = {}, action) => {
-  console.log("userReducer accessed:", action.payload);
   switch (action.type) {
-    case 'SET_USER':
+    case "SET_USER":
       return action.payload;
-    case 'UNSET_USER':
+    case "UNSET_USER":
       return {};
     default:
       return state;
@@ -13,9 +12,8 @@ const userReducer = (state = {}, action) => {
 };
 
 const users = (state = [], action) => {
-  console.log("users reducer accessed");
   switch (action.type) {
-    case 'SET_USERS':
+    case "SET_USERS":
       return action.payload;
     default:
       return state;
@@ -26,5 +24,5 @@ const users = (state = [], action) => {
 // state.user
 export default combineReducers({
   userReducer,
-  users
+  users,
 });
