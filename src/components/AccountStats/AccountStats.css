@@ -1,5 +1,5 @@
 .overviewBox{
-    background-color: rgba(203, 200, 200, 0.5);
+    background-color: #cbc8c880;
     box-shadow: 0 3px 3px 3px rgb(0, 0, 0, 0.4);
     height: 75vh;
     border-radius: 4px;
@@ -12,16 +12,50 @@
     width: auto;
     height: 9em;
     display: flex;
-    
+}
+
+.topBox {
+    box-shadow: 0 3px 3px 3px rgb(0, 0, 0, 0.4);    
+    border-radius: 3px;
+    background-color: rgb(140, 145, 164);
+}
+
+.playerTitle {
+    color: white;
+}
+
+.comp {
+    margin-top: 0.5em;
 }
 
 .icon{
     height: 9em;
+    margin-right: 0.5em;
+}
+
+.e-icon{
+    margin-left: auto;
+}
+
+.roleIcon {
+    height: auto;
+    width: 2em;
+    padding-bottom: 0.5em;
+}
+
+.rankIcon {
+    height: 3em;
+    width: auto;
 }
 
 .box{
+    display: flex;   
+}
+
+.rankBar {
+    margin-left: 0.5em;
     display: flex;
-   
+    justify-content: space-between;
 }
 
 .heroBox {

@@ -40,11 +40,26 @@ export default function AccountStats(){
             <h1 className='title'> Account Overview </h1>
             <div className='overviewBox'>
                 {
-                    playerSummary &&
-                    <div className = 'playerHeader' style = {myStyle}>
-                        <img className = 'icon' src={`${playerSummary.avatar}`}></img>
-                        <h1 className = 'playerTag'> {params.player} </h1>
+                    playerSummary.endorsement &&
+                    <div className = 'topBox'>
 
+                        <div className = 'playerHeader' style = {myStyle}>
+                            <img className = 'icon' src={`${playerSummary.avatar}`}></img>
+                            <h1 className = 'playerTag'> {params.player} </h1>
+                            <img className = 'e-icon' src={`${playerSummary.endorsement.frame}`}></img>
+                        </div>
+                        
+                        <div className = 'rankBar'>
+                            <h1 className='playerTitle'>{playerSummary.title}</h1>
+                            <div className = 'comp'>
+                                <img className = 'roleIcon' src={`${playerSummary.competitive.pc.tank.role_icon}`}></img>
+                                <img className = 'rankIcon' src={`${playerSummary.competitive.pc.tank.rank_icon}`}></img>
+                                <img className = 'roleIcon' src={`${playerSummary.competitive.pc.damage.role_icon}`}></img>
+                                <img className = 'rankIcon' src={`${playerSummary.competitive.pc.damage.rank_icon}`}></img>
+                                <img className = 'roleIcon' src={`${playerSummary.competitive.pc.support.role_icon}`}></img>
+                                <img className = 'rankIcon' src={`${playerSummary.competitive.pc.support.rank_icon}`}></img>
+                            </div>
+                        </div>
                     </div>
                 }
                 <br/>
