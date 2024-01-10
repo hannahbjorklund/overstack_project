@@ -75,16 +75,25 @@ router.get("/all", (req, res) => {
             rawStats.quickplay.heroes_comparisons.time_played.values[i].hero;
           allStats.quickplay.heroes.push({
             name: hero,
-            time_played:
-              rawStats.quickplay.heroes_comparisons.time_played.values[i].value,
+            game: [],
           });
+
           // Populating more stats for top 3 heroes
+          // Hero specific stats
           allStats.quickplay.heroes[i][
             rawStats.quickplay.career_stats[hero][0].category
           ] = rawStats.quickplay.career_stats[hero][0].stats;
-          allStats.quickplay.heroes[i][
-            rawStats.quickplay.career_stats[hero][3].category
-          ] = rawStats.quickplay.career_stats[hero][3].stats;
+
+          // Doing this data manually because of some repeat values in the API result
+          let qpGamePath = rawStats.quickplay.career_stats[hero][3].stats;
+        
+          allStats.quickplay.heroes[i].game.push({label: qpGamePath[0].label, value: Math.floor(qpGamePath[0].value/60/60)});
+          allStats.quickplay.heroes[i].game.push({label: qpGamePath[1].label, value: qpGamePath[1].value});
+          allStats.quickplay.heroes[i].game.push({label: qpGamePath[2].label, value: qpGamePath[2].value});
+          allStats.quickplay.heroes[i].game.push({label: qpGamePath[qpGamePath.length - 1].label, value: qpGamePath[qpGamePath.length - 1].value});
+          allStats.quickplay.heroes[i].game.push({label: qpGamePath[qpGamePath.length - 2].label, value: qpGamePath[qpGamePath.length - 2].value});
+
+          // Combat stats
           allStats.quickplay.heroes[i][
             rawStats.quickplay.career_stats[hero][4].category
           ] = rawStats.quickplay.career_stats[hero][4].stats;
@@ -135,13 +144,24 @@ router.get("/all", (req, res) => {
               rawStats.competitive.heroes_comparisons.time_played.values[i]
                 .value,
           });
+          
           // Populating more stats for top 3 heroes
+          // Hero specific stats
           allStats.competitive.heroes[i][
             rawStats.competitive.career_stats[hero][0].category
           ] = rawStats.competitive.career_stats[hero][0].stats;
-          allStats.competitive.heroes[i][
-            rawStats.competitive.career_stats[hero][3].category
-          ] = rawStats.competitive.career_stats[hero][3].stats;
+
+          // Game stats
+          // Doing this data manually because of some repeat values in the API result
+          let compGamePath = rawStats.competitive.career_stats[hero][3].stats;
+          
+          allStats.competitive.heroes[i].game.push({label: compGamePath[0].label, value: Math.floor(compGamePath[0].value/60/60)});
+          allStats.competitive.heroes[i].game.push({label: compGamePath[1].label, value: compGamePath[1].value});
+          allStats.competitive.heroes[i].game.push({label: compGamePath[2].label, value: compGamePath[2].value});
+          allStats.competitive.heroes[i].game.push({label: compGamePath[compGamePath.length - 1].label, value: compGamePath[compGamePath.length - 1].value});
+          allStats.competitive.heroes[i].game.push({label: compGamePath[compGamePath.length - 2].label, value: compGamePath[compGamePath.length - 2].value});
+
+          // Combat stats
           allStats.competitive.heroes[i][
             rawStats.competitive.career_stats[hero][4].category
           ] = rawStats.competitive.career_stats[hero][4].stats;

@@ -5,8 +5,6 @@ import PlayerCard from "../PlayerCard/PlayerCard";
 import './UserPage.css';
 
 function UserPage() {
-  console.log("In user page");
-
   const history = useHistory();
   const dispatch = useDispatch();
 

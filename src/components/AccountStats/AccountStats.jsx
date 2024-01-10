@@ -53,12 +53,27 @@ export default function AccountStats(){
                         <div className = 'rankBar'>
                             <h1 className='playerTitle'>{playerSummary.title}</h1>
                             <div className = 'comp'>
-                                <img className = 'roleIcon' src={`${playerSummary.competitive.pc.tank.role_icon}`}></img>
-                                <img className = 'rankIcon' src={`${playerSummary.competitive.pc.tank.rank_icon}`}></img>
-                                <img className = 'roleIcon' src={`${playerSummary.competitive.pc.damage.role_icon}`}></img>
-                                <img className = 'rankIcon' src={`${playerSummary.competitive.pc.damage.rank_icon}`}></img>
-                                <img className = 'roleIcon' src={`${playerSummary.competitive.pc.support.role_icon}`}></img>
-                                <img className = 'rankIcon' src={`${playerSummary.competitive.pc.support.rank_icon}`}></img>
+                                {
+                                    playerSummary.competitive.pc.tank && 
+                                    <>
+                                        <img className = 'roleIcon' src={`${playerSummary.competitive.pc.tank.role_icon}`}></img>
+                                        <img className = 'rankIcon' src={`${playerSummary.competitive.pc.tank.rank_icon}`}></img>
+                                    </>
+                                }
+                                {
+                                    playerSummary.competitive.pc.damage &&
+                                    <>
+                                        <img className = 'roleIcon' src={`${playerSummary.competitive.pc.damage.role_icon}`}></img>
+                                        <img className = 'rankIcon' src={`${playerSummary.competitive.pc.damage.rank_icon}`}></img>
+                                    </>
+                                }
+                                {
+                                    playerSummary.competitive.pc.support &&
+                                    <>
+                                        <img className = 'roleIcon' src={`${playerSummary.competitive.pc.support.role_icon}`}></img>
+                                        <img className = 'rankIcon' src={`${playerSummary.competitive.pc.support.rank_icon}`}></img>
+                                    </>
+                                }
                             </div>
                         </div>
                     </div>

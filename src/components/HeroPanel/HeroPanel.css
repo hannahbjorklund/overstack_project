@@ -11,3 +11,21 @@
     height: 2em;
     text-align: center;
 }
+
+.heroPanel {
+    display: flex;
+    width: 100%;
+    box-shadow: 0 3px 3px 3px rgb(0, 0, 0, 0.4);
+    padding: 10px;
+    border-radius: 3px;
+}
+
+.heroSpecStats {
+    margin-left: 2em;
+    align-self: top;
+
+}
+
+.heroPreview {
+   text-align: center;
+}
