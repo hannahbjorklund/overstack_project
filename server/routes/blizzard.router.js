@@ -115,6 +115,56 @@ router.post("/", rejectUnauthenticated, (req, res) => {
     });
 });
 
+// Add a friend's blizzard account
+router.post("/friends", rejectUnauthenticated, (req, res) => {
+  let battletag = req.body.battletag;
+  let userID = req.body.userID;
+
+  // Returning "id" will give us back the id of the added blizzard account
+  const addAccountQuery = `
+        INSERT INTO "blizzard_accounts" 
+        ("battletag", "user_id")
+        VALUES
+        ($1, $2)
+        RETURNING "id";
+    `;
+
+  const addAccountValues = [battletag, userID];
+
+  // First query to add the account to the DB
+  pool
+    .query(addAccountQuery, addAccountValues)
+    .then((result) => {
+      const addedAccountID = result.rows[0].id;
+
+      // Now we have to insert values into our junction table, user_accounts
+      //  User id will be NULL because this account is a friend,  not owned by the user
+      const addAccountUserQuery = `
+            INSERT INTO "user_accounts"
+            ("blizzard_account_id", "user_id")
+            VALUES
+            ($1, NULL);
+        `;
+
+      const addAccountUserValues = [addedAccountID];
+
+      // Second query
+      pool
+        .query(addAccountUserQuery, addAccountUserValues)
+        .then((result) => {
+          res.sendStatus(201);
+        })
+        .catch((error) => {
+          console.log("Error in second POST query:", error);
+          res.sendStatus(500);
+        });
+    })
+    .catch((error) => {
+      console.log("Error in first POST query:", error);
+      res.sendStatus(500);
+    });
+})
+
 // Delete a blizzard account
 router.delete("/:id", rejectUnauthenticated, (req, res) => {
   let blizzardID = req.params.id;

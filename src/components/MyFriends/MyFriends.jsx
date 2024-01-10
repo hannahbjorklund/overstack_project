@@ -6,6 +6,7 @@ import './MyFriends.css';
 export default function MyFriends(){
     const user = useSelector(store => store.user.userReducer);
     const [filterOption, setFilterOption] = useState(`"id" DESC`);
+
     const dispatch = useDispatch();
 
     useEffect(() => {
