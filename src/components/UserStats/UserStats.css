@@ -3,7 +3,8 @@
   background-color: rgba(203, 200, 200, 0.5);
   border-radius: 10px;
   padding: 20px;
-  
+  height: 72vh;
+  overflow-y: auto;
 }
 
 .tabContent{
@@ -30,6 +31,7 @@
 
 .title{
   font-size: xxx-large;
+  margin-bottom: 0.5em;
 }
 
 .statPanel {

@@ -28,6 +28,14 @@ function Nav() {
               My Profile
             </Link>
 
+            <Link className="navLink" to="/myFriends">
+              My Friends
+            </Link>
+
+            <Link className="navLink" to="/myStack">
+              My Stack
+            </Link>
+
             <Link className="navLink" to="/info">
               Info
             </Link>

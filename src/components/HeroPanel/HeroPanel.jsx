@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './HeroPanel.css';
 
 export default function HeroPanel({category, stats}){
