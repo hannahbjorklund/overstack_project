@@ -10,6 +10,16 @@ const userAccounts = (state = [], action) => {
   }
 };
 
+const friendAccounts = (state = [], action) => {
+  switch(action.type) {
+    case "SET_FRIEND_ACCOUNTS":
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   userAccounts,
+  friendAccounts
 });

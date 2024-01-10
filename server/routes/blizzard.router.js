@@ -12,7 +12,7 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
   const sqlQuery = `
     SELECT "username",
 	    "battletag",
-        "blizzard_account_id"
+      "blizzard_account_id"
 	    FROM "users"
 	    JOIN "user_accounts"
 	    ON "users"."id" = "user_accounts"."user_id"
@@ -33,6 +33,37 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
       res.sendStatus(500);
     });
 });
+
+// Get the blizzard accounts a user has added as a friend
+router.get("/friends/:id", rejectUnauthenticated, (req, res) => {
+  let userID = req.params.id;
+  let filter = req.query.filter;
+
+  const sqlQuery = `
+    SELECT "battletag",
+	    "user_accounts"."blizzard_account_id"
+	    FROM "user_accounts"
+	    JOIN "blizzard_accounts"
+	      ON
+	      "user_accounts"."blizzard_account_id" = "blizzard_accounts"."id"
+	    JOIN "users"
+	      ON
+	      "users"."id" = "blizzard_accounts"."user_id"
+	    WHERE "blizzard_accounts"."user_id" = $1 AND "user_accounts"."user_id" IS NULL
+      ORDER BY $2;
+  `
+
+  const sqlValues = [userID, filter];
+
+  pool.query(sqlQuery, sqlValues)
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((error) => {
+      console.log("Error in /blizzard/friends/:id:", error);
+      res.sendStatus(500);
+    })
+})
 
 // Add a new blizzard account to the database
 router.post("/", rejectUnauthenticated, (req, res) => {

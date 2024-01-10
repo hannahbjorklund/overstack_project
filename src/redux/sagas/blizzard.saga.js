@@ -56,8 +56,25 @@ function* removeAccount(action){
     }
 }
 
+// Get the user's friends blizzard accounts
+function* getFriendAccounts(action){
+    try{
+        let userID = action.payload.id;
+        let filter = action.payload.filter;
+        const friendAccountsResponse = yield axios.get(`/blizzard/friends/${userID}?filter=${filter}`);
+        // Set friendAccounts reducer
+        yield put({
+            type: 'SET_FRIEND_ACCOUNTS',
+            payload: friendAccountsResponse.data
+        })
+    } catch (error) {
+        console.log('Error in getFriendAccounts:', error);
+    }
+}
+
 export default function* blizzardSaga() {
     yield takeLatest('ADD_USER_ACCOUNT', addUserAccount);
     yield takeEvery('GET_USER_ACCOUNTS', getUserAccounts);
     yield takeLatest('REMOVE_ACCOUNT', removeAccount);
+    yield takeLatest('GET_FRIEND_ACCOUNTS', getFriendAccounts);
 }
