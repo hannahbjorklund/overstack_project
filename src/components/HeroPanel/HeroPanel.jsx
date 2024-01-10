@@ -27,7 +27,13 @@ export default function HeroPanel({category, stats}){
                 <br/>
                 <img className = 'heroIcon' src={`/hero_icons/${currentHero}.png`}/>
                 {currentHeroStats.game.map((x, i) => {
-                    return <p key = {i}>{`${x.label}: ${x.value}`}</p>
+                    if(i == 0){
+                        return <p key = {i}>{`${x.label}: ${x.value} hours`}</p>
+                    } else {
+                        return (
+                            <p key = {i}>{`${x.label}: ${x.value}`}</p>
+                        )
+                    }
                 })}
             </div>
             <div className = 'heroSpecStats'>

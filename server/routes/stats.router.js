@@ -143,6 +143,7 @@ router.get("/all", (req, res) => {
             time_played:
               rawStats.competitive.heroes_comparisons.time_played.values[i]
                 .value,
+            game: []
           });
           
           // Populating more stats for top 3 heroes
