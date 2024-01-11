@@ -37,8 +37,8 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
 // Get the blizzard accounts a user has added as a friend
 router.get("/friends/:id", rejectUnauthenticated, (req, res) => {
   let userID = req.params.id;
-  let filter = req.query.filter;
 
+  // Using order by blizzard account id will display friends list with most recently added friends on top
   const sqlQuery = `
     SELECT "battletag",
 	    "user_accounts"."blizzard_account_id"
@@ -50,10 +50,10 @@ router.get("/friends/:id", rejectUnauthenticated, (req, res) => {
 	      ON
 	      "users"."id" = "blizzard_accounts"."user_id"
 	    WHERE "blizzard_accounts"."user_id" = $1 AND "user_accounts"."user_id" IS NULL
-      ORDER BY $2;
+      ORDER BY "blizzard_accounts"."id" DESC;
   `
 
-  const sqlValues = [userID, filter];
+  const sqlValues = [userID];
 
   pool.query(sqlQuery, sqlValues)
     .then((result) => {
@@ -61,6 +61,68 @@ router.get("/friends/:id", rejectUnauthenticated, (req, res) => {
     })
     .catch((error) => {
       console.log("Error in /blizzard/friends/:id:", error);
+      res.sendStatus(500);
+    })
+})
+
+ // Get blizzard friend accounts in alphabetical order
+router.get("/friends/alph/:id", (req, res) => {
+  let userID = req.params.id;
+
+  // Using order by blizzard account id will display friends list with most recently added friends on top
+  const sqlQuery = `
+    SELECT "battletag",
+	    "user_accounts"."blizzard_account_id"
+	    FROM "user_accounts"
+	    JOIN "blizzard_accounts"
+	      ON
+	      "user_accounts"."blizzard_account_id" = "blizzard_accounts"."id"
+	    JOIN "users"
+	      ON
+	      "users"."id" = "blizzard_accounts"."user_id"
+	    WHERE "blizzard_accounts"."user_id" = $1 AND "user_accounts"."user_id" IS NULL
+      ORDER BY "blizzard_accounts"."battletag";
+  `
+
+  const sqlValues = [userID];
+
+  pool.query(sqlQuery, sqlValues)
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((error) => {
+      console.log("Error in /blizzard/friends/alph/:id:", error);
+      res.sendStatus(500);
+    })
+})
+
+// Get blizzard friend accounts in reverse alphabetical order
+router.get("/friends/revAlph/:id", (req, res) => {
+  let userID = req.params.id;
+
+  // Using order by blizzard account id will display friends list with most recently added friends on top
+  const sqlQuery = `
+    SELECT "battletag",
+	    "user_accounts"."blizzard_account_id"
+	    FROM "user_accounts"
+	    JOIN "blizzard_accounts"
+	      ON
+	      "user_accounts"."blizzard_account_id" = "blizzard_accounts"."id"
+	    JOIN "users"
+	      ON
+	      "users"."id" = "blizzard_accounts"."user_id"
+	    WHERE "blizzard_accounts"."user_id" = $1 AND "user_accounts"."user_id" IS NULL
+      ORDER BY "blizzard_accounts"."battletag" DESC;
+  `
+
+  const sqlValues = [userID];
+
+  pool.query(sqlQuery, sqlValues)
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((error) => {
+      console.log("Error in /blizzard/friends/alph/:id:", error);
       res.sendStatus(500);
     })
 })

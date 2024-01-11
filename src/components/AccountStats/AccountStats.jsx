@@ -32,7 +32,7 @@ export default function AccountStats(){
 
     const myStyle = {
         backgroundImage: `url(${playerSummary.namecard})`,
-        backgroundSize: "auto",
+        backgroundSize: "cover",
     };
 
     return (

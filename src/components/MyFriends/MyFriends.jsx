@@ -8,14 +8,14 @@ export default function MyFriends(){
     const user = useSelector(store => store.user.userReducer);
     const friendAccounts = useSelector(store => store.blizzard.friendAccounts);
     const statsArray = useSelector((store) => store.stats.statSummaryArray);
-    const [filterOption, setFilterOption] = useState('"id" DESC');
+    const [filterOption, setFilterOption] = useState('recent');
 
     const dispatch = useDispatch();
     const history = useHistory();
 
     useEffect(() => {
         getFriendAccounts();
-    }, []);
+    }, [filterOption]);
 
     useEffect(() => {
         getStatSummaryArray();
@@ -41,9 +41,7 @@ export default function MyFriends(){
     }
 
     function handleChange(e){
-        console.log("Changing:", e.target.value);
         setFilterOption(e.target.value);
-        getFriendAccounts();
     }
 
     return (
@@ -54,9 +52,9 @@ export default function MyFriends(){
                     <label>Filter: </label>
                     <select value={filterOption} onChange = {handleChange} className = 'heroSelect'>
                         {/* These values can be inserted into a GET query to re-order friends */}
-                        <option value={`"id" DESC`}> Recent </option>
-                        <option value={`"battletag"`}> Alphabetical (A-Z) </option>
-                        <option value={`"battletag" DESC`}> Reverse Alphabetical (Z-A)</option>
+                        <option value={'recent'}> Recent </option>
+                        <option value={'alph'}> Alphabetical (A-Z) </option>
+                        <option value={'revAlph'}> Reverse Alphabetical (Z-A)</option>
                     </select>
                     <div className = 'moarButtons'>
                         <button className='btn' onClick = {() => history.push('/addFriend')}>Add Friend</button>

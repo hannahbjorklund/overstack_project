@@ -61,7 +61,13 @@ function* getFriendAccounts(action){
     try{
         let userID = action.payload.id;
         let filter = action.payload.filter;
-        const friendAccountsResponse = yield axios.get(`/blizzard/friends/${userID}?filter=${filter}`);
+        let friendAccountsResponse = yield axios.get(`blizzard/friends/${userID}`);;
+        if (filter == 'alph'){
+            
+            friendAccountsResponse = yield axios.get(`blizzard/friends/alph/${userID}`);
+        } else if (filter == 'revAlph'){
+            friendAccountsResponse = yield axios.get(`/blizzard/friends/revAlph/${userID}`);
+        }
         // Set friendAccounts reducer
         yield put({
             type: 'SET_FRIEND_ACCOUNTS',
