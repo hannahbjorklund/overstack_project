@@ -10,6 +10,20 @@
   justify-self: flex-end;
 }
 
+.accountsContainerRemove {
+  background-color: rgba(203, 200, 200, 0.5);
+  box-shadow: 0 3px 3px 3px rgb(0, 0, 0, 0.4);
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 75vh;
+  width: 65vw;
+  margin-top: 1em;
+  border-radius: 4px;
+  justify-self: flex-end;
+  border: 2px solid red;
+
+}
+
 .profileContainer {
   padding: 20px;
   display: flex;

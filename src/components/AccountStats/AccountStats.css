@@ -3,9 +3,9 @@
     box-shadow: 0 3px 3px 3px rgb(0, 0, 0, 0.4);
     height: 75vh;
     border-radius: 4px;
+    width: 79vw;
     overflow-y: scroll;
     padding: 10px;
-
 }
 
 .playerHeader {
@@ -13,6 +13,7 @@
     height: 9em;
     display: flex;
 }
+
 
 .error{
     text-align: center;
@@ -28,6 +29,7 @@
 
 .playerTitle {
     color: white;
+    margin-top: 0.5em;
 }
 
 .comp {

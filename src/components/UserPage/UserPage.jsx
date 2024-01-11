@@ -82,7 +82,8 @@ function UserPage() {
         <div className='userStats'>
           {compiledStats.total &&
           <>
-            <h3>Accounts Overview</h3>
+            <h2>Accounts Overview</h2>
+            <br/>
             <p> Time Played: {Math.floor(compiledStats.total.game.time_played/60/60)} hours</p>
             <p> Games Played: {compiledStats.total.game.games_played}</p>
             <p> Win Percentage: {Math.floor(100*(compiledStats.total.game.games_won)/(compiledStats.total.game.games_played))}%</p>
