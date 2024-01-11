@@ -11,31 +11,42 @@ export default function PlayerCard({ stats }) {
 
   const myStyle = {
     backgroundImage: `url(${stats.namecard})`,
-    backgroundSize: "auto",
+    backgroundSize: "cover",
   };
 
-  // Remove the account from db
+  // Remove the user's blizzard account from db
   const removeAccount = () => {
     // Confirm with the user before removing the account
     if (confirm(`Are you sure you want to unlink ${stats.battletag}?`)) {
-      console.log("Unlinking account:", stats.battletag);
       dispatch({
         type: "REMOVE_ACCOUNT",
-        payload: stats.blizzardID,
+        payload: stats.blizzardID
       });
       // Navigate back to the user page after successful deletion
       history.push("/user");
     }
   };
 
+  // Remove a friend's account from db
+  const removeFriend = () => {
+    if(confirm(`Are you sure you want to remove ${stats.battletag} as a friend?`)){
+      dispatch({
+        type: 'REMOVE_FRIEND',
+        payload: stats.blizzardID
+      })
+      history.push("/myFriends");
+    }
+  }
+
   // Clicking on a playercard will do different things depending on the page
   //  the user is on. This is to handle that.
   const handleClick = () => {
     if (history.location.pathname == "/removeUserAccount") {
       removeAccount();
-    } else if (history.location.pathname == "/user") {
-      console.log("You want to go to there");
+    } else if (history.location.pathname == "/user" || history.location.pathname == '/myFriends') {
       history.push(`/accountStats/${stats.battletag}`);
+    } else if (history.location.pathname == "/removeFriend"){
+      removeFriend();
     }
   };
 

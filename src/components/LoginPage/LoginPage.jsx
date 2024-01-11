@@ -5,7 +5,6 @@ import './LoginPage.css'
 
 function LoginPage() {
   const history = useHistory();
-  console.log("In login page")
 
   return (
     <div>

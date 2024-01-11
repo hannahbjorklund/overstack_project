@@ -21,10 +21,6 @@ function UserPage() {
   // This is to ensure the userAccounts have been populated before getting each account's stats
   useEffect(() => {
     getStatSummaryArray();
-  }, [userAccounts]);
-
-  // Ensure userAccounts has been populated before getting all stats
-  useEffect(() => {
     getAllStatsArray();
   }, [userAccounts]);
 

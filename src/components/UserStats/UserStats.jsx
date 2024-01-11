@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import './UserStats.css';
 import StatsPanel from '../StatsPanel/StatsPanel';
@@ -58,7 +58,6 @@ export default function UserStats(){
                 {
                     compiledStats.total && <StatsPanel compiledStats = {compiledStats}/>
                 }
-                
             </div>
         </div>
     )

@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import PlayerCard from '../PlayerCard/PlayerCard';
-import './MyFriends.css';
 
-export default function MyFriends(){
+export default function RemoveFriendPage(){
     const user = useSelector(store => store.user.userReducer);
     const friendAccounts = useSelector(store => store.blizzard.friendAccounts);
     const statsArray = useSelector((store) => store.stats.statSummaryArray);
@@ -59,8 +58,9 @@ export default function MyFriends(){
                         <option value={`"battletag" DESC`}> Reverse Alphabetical (Z-A)</option>
                     </select>
                     <div className = 'moarButtons'>
-                        <button className='btn' onClick = {() => history.push('/addFriend')}>Add Friend</button>
-                        <button className='btn' onClick = {() => history.push('/removeFriend')}>Remove Friend</button>
+                        <button className='btnDisabled' onClick = {() => history.push('/addFriend')} disabled = {true}>Add Friend</button>
+                        <button className='btn' onClick = {() => history.push('/myFriends')}>Cancel</button>
+                        <span className = 'removeMessage'>Click an account to remove</span>
                     </div>
                 </div>
                 <div className = 'friendAccounts'>

@@ -72,6 +72,7 @@ function* getFriendAccounts(action){
     }
 }
 
+// Add a new blizzard account as a friend
 function* addFriendAccount(action){
     try {
         const newAccount = action.payload;
@@ -95,10 +96,24 @@ function* addFriendAccount(action){
         }
 }
 
+function* removeFriend(action){
+    try{
+        let blizzardID = action.payload;
+        // Delete by battletag. This is acceptable since battletag is a unique value
+        const response = yield axios({
+            method: 'DELETE',
+            url: `/blizzard/friends/${blizzardID}`,
+        })
+    } catch (error) {
+        console.log("Error in removeAccount:", error);
+    }
+}
+
 export default function* blizzardSaga() {
     yield takeLatest('ADD_USER_ACCOUNT', addUserAccount);
     yield takeEvery('GET_USER_ACCOUNTS', getUserAccounts);
     yield takeLatest('REMOVE_ACCOUNT', removeAccount);
     yield takeLatest('GET_FRIEND_ACCOUNTS', getFriendAccounts);
     yield takeLatest('ADD_FRIEND_ACCOUNT', addFriendAccount);
+    yield takeLatest('REMOVE_FRIEND', removeFriend);
 }

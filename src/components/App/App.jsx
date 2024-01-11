@@ -23,6 +23,7 @@ import AccountStats from '../AccountStats/AccountStats';
 import MyFriends from '../MyFriends/MyFriends';
 import MyStack from '../MyStack/MyStack';
 import AddFriendPage from '../AddFriendPage/AddFriendPage';
+import RemoveFriendPage from '../RemoveFriendPage/RemoveFriendPage';
 import './App.css';
 
 function App() {
@@ -121,6 +122,10 @@ function App() {
 
           <ProtectedRoute exact path = '/addFriend'>
             <AddFriendPage/>
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path = '/removeFriend'>
+            <RemoveFriendPage/>
           </ProtectedRoute>
 
           <Route

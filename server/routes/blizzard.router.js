@@ -65,7 +65,7 @@ router.get("/friends/:id", rejectUnauthenticated, (req, res) => {
     })
 })
 
-// Add a new blizzard account to the database
+// Add a new user blizzard account to the database
 router.post("/", rejectUnauthenticated, (req, res) => {
   let battletag = req.body.battletag;
   let userID = req.body.userID;
@@ -165,16 +165,18 @@ router.post("/friends", rejectUnauthenticated, (req, res) => {
     });
 })
 
-// Delete a blizzard account
+// Delete a user's linked blizzard account
 router.delete("/:id", rejectUnauthenticated, (req, res) => {
   let blizzardID = req.params.id;
+  let userID = req.user.id;
 
   const sqlQuery = `
-    DELETE FROM "user_accounts"
-        WHERE "blizzard_account_id" = $1;
+      DELETE FROM "user_accounts"
+        WHERE "blizzard_account_id" = $1
+        AND "user_id" = $2;
     `;
 
-  const sqlValues = [blizzardID];
+  const sqlValues = [blizzardID, userID];
 
   // Delete the blizzard account from the blizzard accounts table first
   pool
@@ -182,7 +184,8 @@ router.delete("/:id", rejectUnauthenticated, (req, res) => {
     .then((result) => {
       const sqlQuery2 = `
         DELETE FROM "blizzard_accounts"
-            WHERE "id" = $1;
+            WHERE "id" = $1
+            AND "user_id" = $2;
         `;
 
       // Delete the account from the junction table as well
@@ -201,5 +204,44 @@ router.delete("/:id", rejectUnauthenticated, (req, res) => {
       res.sendStatus(500);
     });
 });
+
+// Delete a friend's blizzard account
+router.delete("/friends/:id", rejectUnauthenticated, (req, res) => {
+  let blizzardID = req.params.id;
+  let userID = req.user.id;
+  
+  const sqlQuery = `
+      DELETE FROM "user_accounts" 
+	      USING "blizzard_accounts"
+	    WHERE "user_accounts"."blizzard_account_id" = "blizzard_accounts"."id"
+		    AND "user_accounts"."user_id" IS NULL
+		    AND "blizzard_accounts"."id" = $1
+        AND "blizzard_accounts"."user_id" = $2;
+    `;
+
+  const sqlValues = [blizzardID, userID];
+
+  // First query to remove the account from the "user accounts" table
+  pool.query(sqlQuery, sqlValues)
+    .then((result) => {
+
+      const sqlQuery2 = `
+        DELETE FROM "blizzard_accounts"
+        WHERE "blizzard_accounts"."id" = $1
+          AND "blizzard_accounts"."user_id" = $2;
+      `
+
+      // Second query to remove the friend from the blizzard accounts table
+      pool.query(sqlQuery2, sqlValues)
+        .then((result) => {
+          res.sendStatus(200);
+        }).catch((error) => {
+          console.log("Error in second query DELETE /blizzard/friends/:id:", error);
+        })
+    }).catch((error) => {
+      console.log("Error in first query DELETE /blizzard/friends/:id:", error);
+      res.sendStatus(500);
+    })
+})
 
 module.exports = router;

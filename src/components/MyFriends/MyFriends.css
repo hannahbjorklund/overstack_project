@@ -1,6 +1,12 @@
 .filterBar {
     background-color: gray;
     padding: 10px;
+    display: flex;
+    
+}
+
+.moarButtons {
+    margin-left: auto;
 }
 
 .friendBox {
@@ -8,4 +14,6 @@
     background-color: rgba(203, 200, 200, 0.5);
     border-radius: 3px;
     height: 73vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
