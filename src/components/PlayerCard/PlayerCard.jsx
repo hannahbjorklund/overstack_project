@@ -17,7 +17,7 @@ export default function PlayerCard({ stats }) {
   // Remove the user's blizzard account from db
   const removeAccount = () => {
     // Confirm with the user before removing the account
-    if (confirm(`Are you sure you want to unlink ${stats.battletag}?`)) {
+    if (confirm(`Are you sure you want to unlink ${stats.battletag}? This will also remove them from your stacks.`)) {
       dispatch({
         type: "REMOVE_ACCOUNT",
         payload: stats.blizzardID
@@ -29,7 +29,7 @@ export default function PlayerCard({ stats }) {
 
   // Remove a friend's account from db
   const removeFriend = () => {
-    if(confirm(`Are you sure you want to remove ${stats.battletag} as a friend?`)){
+    if(confirm(`Are you sure you want to remove ${stats.battletag} as a friend? This will also remove them from your stacks`)){
       dispatch({
         type: 'REMOVE_FRIEND',
         payload: stats.blizzardID

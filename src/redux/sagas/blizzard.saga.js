@@ -102,6 +102,7 @@ function* addFriendAccount(action){
         }
 }
 
+// Remove an account from friends list
 function* removeFriend(action){
     try{
         let blizzardID = action.payload;
@@ -115,6 +116,19 @@ function* removeFriend(action){
     }
 }
 
+function* getAllAccounts(action){
+    try{
+        let userID = action.payload;
+        const allAccountsResponse = yield axios.get(`/blizzard/all/${userID}`);
+        yield put({
+            type: 'SET_ALL_ACCOUNTS',
+            payload: allAccountsResponse.data
+        })
+    } catch (error){
+        console.log('Error in getAllAccounts:', error);
+    }
+}
+
 export default function* blizzardSaga() {
     yield takeLatest('ADD_USER_ACCOUNT', addUserAccount);
     yield takeEvery('GET_USER_ACCOUNTS', getUserAccounts);
@@ -122,4 +136,5 @@ export default function* blizzardSaga() {
     yield takeLatest('GET_FRIEND_ACCOUNTS', getFriendAccounts);
     yield takeLatest('ADD_FRIEND_ACCOUNT', addFriendAccount);
     yield takeLatest('REMOVE_FRIEND', removeFriend);
+    yield takeLatest('GET_ALL_ACCOUNTS', getAllAccounts);
 }

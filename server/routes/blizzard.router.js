@@ -65,8 +65,31 @@ router.get("/friends/:id", rejectUnauthenticated, (req, res) => {
     })
 })
 
+// Get all accounts added by a user, this includes their own accounts and friends accounts
+router.get("/all/:id", rejectUnauthenticated, (req, res) => {
+  let userID = req.params.id;
+  const sqlQuery = `
+    SELECT "battletag",
+      "blizzard_accounts"."id" AS "blizzard_account_id"
+    FROM "users"
+    JOIN "blizzard_accounts"
+      ON "users"."id" = "blizzard_accounts"."user_id"
+    WHERE "users"."id" = $1;
+  `;
+
+  const sqlValues = [userID];
+
+  pool.query(sqlQuery, sqlValues)
+    .then((result) => {
+      res.send(result.rows);
+    }).catch((error) => {
+      console.log("Error in GET /blizzard/all/:id:", error);
+      res.sendStatus(500);
+    })
+})
+
  // Get blizzard friend accounts in alphabetical order
-router.get("/friends/alph/:id", (req, res) => {
+router.get("/friends/alph/:id", rejectUnauthenticated, (req, res) => {
   let userID = req.params.id;
 
   // Using order by blizzard account id will display friends list with most recently added friends on top
@@ -97,7 +120,7 @@ router.get("/friends/alph/:id", (req, res) => {
 })
 
 // Get blizzard friend accounts in reverse alphabetical order
-router.get("/friends/revAlph/:id", (req, res) => {
+router.get("/friends/revAlph/:id", rejectUnauthenticated, (req, res) => {
   let userID = req.params.id;
 
   // Using order by blizzard account id will display friends list with most recently added friends on top

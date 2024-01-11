@@ -19,7 +19,17 @@ const friendAccounts = (state = [], action) => {
   }
 }
 
+const allAccounts = (state = [], action) => {
+  switch(action.type) {
+    case "SET_ALL_ACCOUNTS":
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   userAccounts,
-  friendAccounts
+  friendAccounts,
+  allAccounts
 });
