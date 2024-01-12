@@ -39,19 +39,46 @@ router.get("/all", rejectUnauthenticated, (req, res) => {
 router.delete("/:id", rejectUnauthenticated, (req, res) => {
   const userID = req.params.id;
   if (req.user.is_admin) {
+    console.log("query 1")
     const sqlQuery = `
-      DELETE FROM "users"
-        WHERE "id" = $1;
-    `;
+      DELETE FROM "user_accounts" 
+        USING "blizzard_accounts"
+        WHERE "user_accounts"."blizzard_account_id" = "blizzard_accounts"."id"
+          AND "blizzard_accounts"."user_id" = $2
+          AND "user_accounts"."user_id" IS NOT NULL;`
 
     const sqlValues = [userID];
 
-    pool
-      .query(sqlQuery, sqlValues)
+    pool.query(sqlQuery, sqlValues)
       .then((result) => {
-        res.sendStatus(201);
-      })
-      .catch((error) => {
+      console.log("query 2")
+
+        const sqlQuery2 = `
+          DELETE FROM "blizzard_accounts"
+            WHERE "user_id" = $1;
+          `;
+
+        pool.query(sqlQuery2, sqlValues)
+          .then((result) => {
+            console.log("query 3")
+
+            const sqlQuery3 = `
+            DELETE FROM "users"
+              WHERE "id" = $1;
+            `;
+
+            pool.query(sqlQuery3, sqlValues)
+              .then((result) => {
+                res.sendStatus(201);
+              }).catch((error) => {
+                res.sendStatus(500);
+              })
+            
+          }).catch((error) => {
+            console.log(error);
+            res.sendStatus(500);
+          })
+        }).catch((error) => {
         console.log("Error in DELETE /api/user/:id:", error);
         res.sendStatus(500);
       });

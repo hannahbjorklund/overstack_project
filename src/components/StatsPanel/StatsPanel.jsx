@@ -29,11 +29,11 @@ export default function StatsPanel({compiledStats, totalStats, privacy}){
                                     <div className='statsBox'>
                                         <div className='gameStats'>
                                             <h3 className='category'>Game</h3>
-                                            <p>Time played: {Math.floor(compiledStats.total.game.time_played/60/60)} hours</p>
+                                            <p>Time played: {Math.round(compiledStats.total.game.time_played/60/60)} hours</p>
                                             <p>Games played: {compiledStats.total.game.games_played}</p>
                                             <p>Games won: {compiledStats.total.game.games_won}</p>
                                             <p>Games lost: {compiledStats.total.game.games_lost}</p>
-                                            <p>Win percentage: {Math.floor(100*(compiledStats.total.game.games_won)/(compiledStats.total.game.games_played))}%</p>
+                                            <p>Win percentage: {Math.round(100*(compiledStats.total.game.games_won)/(compiledStats.total.game.games_played))}%</p>
                                         </div>
                                         <div className='combatStats'>
                                             <h3 className='category'>Combat</h3>
@@ -45,8 +45,8 @@ export default function StatsPanel({compiledStats, totalStats, privacy}){
                                             <p>Healing Done: {compiledStats.total.combat.healing_done}</p>
                                             <p>Assists: {compiledStats.total.combat.assists}</p>
                                             <p>Deaths: {compiledStats.total.combat.deaths}</p>
-                                            <p>Objective Time: {Math.floor(compiledStats.total.combat.objective_time/60/60)} hours</p>
-                                            <p>Objective Contest Time: {Math.floor(compiledStats.total.combat.objective_contest_time/60/60)} hours</p>
+                                            <p>Objective Time: {Math.round(compiledStats.total.combat.objective_time/60/60)} hours</p>
+                                            <p>Objective Contest Time: {Math.round(compiledStats.total.combat.objective_contest_time/60/60)} hours</p>
                                         </div>
                                     </div>
                                 }
