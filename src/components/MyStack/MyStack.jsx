@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import "./MyStack.css";
+import Leaderboard from '../Leaderboard/Leaderboard';
 
 export default function MyStack() {
   const user = useSelector((store) => store.user.userReducer);
@@ -8,6 +10,7 @@ export default function MyStack() {
   const allStatsArray = useSelector((store) => store.stats.allStatsArray);
   const compiledStats = useSelector((store) => store.stats.compiledStats);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     getAllAccounts();
@@ -78,6 +81,9 @@ export default function MyStack() {
                   <p>Objective Contest Time: {Math.round(compiledStats.total.combat.objective_contest_time/60/60)} hours</p>
                 </>
               }
+              <div>
+
+              </div>
             </div>
         </div>
         <div className = 'stackMembers'>
