@@ -82,7 +82,7 @@ export default function MyStack() {
                 </>
               }
               <div>
-
+                <Leaderboard/>
               </div>
             </div>
         </div>

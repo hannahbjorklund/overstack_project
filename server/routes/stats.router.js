@@ -64,6 +64,7 @@ router.get("/all", (req, res) => {
           all_heroes: {
             game: qpGame,
             combat: qpCombat,
+            average: rawStats.quickplay.career_stats["all-heroes"][1].stats
           },
           heroes: [],
         };
@@ -128,6 +129,7 @@ router.get("/all", (req, res) => {
           all_heroes: {
             game: compGame,
             combat: compCombat,
+            average: rawStats.competitive.career_stats["all-heroes"][1].stats
           },
           heroes: [],
         };
