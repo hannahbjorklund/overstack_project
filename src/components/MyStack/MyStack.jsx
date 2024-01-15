@@ -63,11 +63,12 @@ export default function MyStack() {
             </div>
             <div className = 'statsBody'>
               {compiledStats.total &&
-                <>
+                <div>
                   <h2 className = 'category'>Game</h2>
                   <p>Games played: {compiledStats.total.game.games_played} </p>
                   <p>Games W/L: {compiledStats.total.game.games_won}/{compiledStats.total.game.games_lost}</p>
                   <p>Avg Win Percentage: {Math.round(compiledStats.total.game.games_won*100/compiledStats.total.game.games_played)}%</p>
+                  
                   <h2 className = 'category'>Combat</h2>
                   <p>Damage Done: {compiledStats.total.combat.damage_done}</p>
                   <p>Eliminations: {compiledStats.total.combat.eliminations}</p>
@@ -79,11 +80,11 @@ export default function MyStack() {
                   <p>Deaths: {compiledStats.total.combat.deaths}</p>
                   <p>Objective Time: {Math.round(compiledStats.total.combat.objective_time/60/60)} hours</p>
                   <p>Objective Contest Time: {Math.round(compiledStats.total.combat.objective_contest_time/60/60)} hours</p>
-                </>
+                </div>
               }
-              <div>
-                <Leaderboard/>
-              </div>
+              
+              
+              
             </div>
         </div>
         <div className = 'stackMembers'>

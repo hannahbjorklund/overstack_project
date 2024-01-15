@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './Leaderboard.css';
 
@@ -7,6 +7,9 @@ export default function Leaderboard(){
     const user = useSelector((store) => store.user.userReducer);
     const allAccounts = useSelector((store) => store.blizzard.allAccounts);
     const allStatsArray = useSelector((store) => store.stats.allStatsArray);
+    const leaderboard = useSelector((store) => store.leaderboard.bestLeaderboard);
+
+    const [currentLeaderboard, setCurrentLeaderboard] = useState('qp');
 
     useEffect(() => {
         getAllAccounts();
@@ -45,9 +48,23 @@ export default function Leaderboard(){
         })
     }
 
-    return (
-        <table>
+    const openTab = (e, tabID) => {
+        e.preventDefault();
+        setCurrentLeaderboard(tabID);
+    }
 
-        </table>
+    return (
+        <div className = ''>
+            <button onClick = {(e) => openTab(e, 'qp')} className = 'btn'>Quickplay</button>
+            <button onClick = {(e) => openTab(e, 'comp')} className = 'btn'>Competitive</button>
+            {
+                (currentLeaderboard == 'qp') &&
+                <table>
+
+                </table>
+            }
+        
+        
+        </div>
     )
 }

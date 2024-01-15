@@ -19,6 +19,7 @@
 .statsBody {
     font-size: x-large;
     padding: 10px;
+    flex-direction: row;
 }
 
 .stackMembers {
