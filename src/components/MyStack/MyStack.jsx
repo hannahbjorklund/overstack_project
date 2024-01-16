@@ -63,7 +63,7 @@ export default function MyStack() {
             </div>
             <div className = 'statsBody'>
               {compiledStats.total &&
-                <div>
+                <div className = 'gameCombatBox'>
                   <h2 className = 'category'>Game</h2>
                   <p>Games played: {compiledStats.total.game.games_played} </p>
                   <p>Games W/L: {compiledStats.total.game.games_won}/{compiledStats.total.game.games_lost}</p>
@@ -83,7 +83,7 @@ export default function MyStack() {
                 </div>
               }
               
-              
+              <Leaderboard/>
               
             </div>
         </div>
@@ -92,7 +92,7 @@ export default function MyStack() {
             <div className = 'stackList'>
                 {
                     allAccounts && allAccounts.map((x, i) => {
-                        return <p key={i} onClick = {() => history.push(`/accountStats/${x.battletag}`)}>{x.battletag}</p>
+                        return <p className = 'singleMember' key={i} onClick = {() => history.push(`/accountStats/${x.battletag}`)}>{x.battletag}</p>
                     })
                 }
             </div>

@@ -11,35 +11,35 @@ export default function Leaderboard(){
 
     const [currentLeaderboard, setCurrentLeaderboard] = useState('qp');
 
-    useEffect(() => {
-        getAllAccounts();
-    }, []);
+    // useEffect(() => {
+    //     getAllAccounts();
+    // }, []);
     
-    useEffect(() => {
-        getAllStatsArray();
-    }, [allAccounts]);
+    // useEffect(() => {
+    //     getAllStatsArray();
+    // }, [allAccounts]);
 
     useEffect(() => {
         getBestLeaderboard();
     }, [allStatsArray])
 
-    function getAllAccounts() {
-        dispatch({
-          type: "GET_ALL_ACCOUNTS",
-          payload: user.id,
-        });
-    }
+    // function getAllAccounts() {
+    //     dispatch({
+    //       type: "GET_ALL_ACCOUNTS",
+    //       payload: user.id,
+    //     });
+    // }
     
-    function getAllStatsArray() {
-        let blizzArray = [];
-        allAccounts.map((x) => {
-            blizzArray.push({ battletag: x.battletag, id: x.blizzard_account_id });
-        });
-        dispatch({
-            type: "GET_ALL_STATS_ARRAY",
-            payload: blizzArray,
-        });
-    }
+    // function getAllStatsArray() {
+    //     let blizzArray = [];
+    //     allAccounts.map((x) => {
+    //         blizzArray.push({ battletag: x.battletag, id: x.blizzard_account_id });
+    //     });
+    //     dispatch({
+    //         type: "GET_ALL_STATS_ARRAY",
+    //         payload: blizzArray,
+    //     });
+    // }
     
     function getBestLeaderboard(){
         dispatch({
@@ -54,13 +54,21 @@ export default function Leaderboard(){
     }
 
     return (
-        <div className = ''>
+        <div className = 'leaderboardBox'>
             <button onClick = {(e) => openTab(e, 'qp')} className = 'btn'>Quickplay</button>
             <button onClick = {(e) => openTab(e, 'comp')} className = 'btn'>Competitive</button>
+            
             {
                 (currentLeaderboard == 'qp') &&
                 <table>
-
+                    {leaderboard.quickplay && 
+                        <tbody>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                        </tbody>
+                        }
                 </table>
             }
         
