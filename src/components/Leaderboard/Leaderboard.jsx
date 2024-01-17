@@ -11,35 +11,9 @@ export default function Leaderboard(){
 
     const [currentLeaderboard, setCurrentLeaderboard] = useState('qp');
 
-    // useEffect(() => {
-    //     getAllAccounts();
-    // }, []);
-    
-    // useEffect(() => {
-    //     getAllStatsArray();
-    // }, [allAccounts]);
-
     useEffect(() => {
         getBestLeaderboard();
     }, [allStatsArray])
-
-    // function getAllAccounts() {
-    //     dispatch({
-    //       type: "GET_ALL_ACCOUNTS",
-    //       payload: user.id,
-    //     });
-    // }
-    
-    // function getAllStatsArray() {
-    //     let blizzArray = [];
-    //     allAccounts.map((x) => {
-    //         blizzArray.push({ battletag: x.battletag, id: x.blizzard_account_id });
-    //     });
-    //     dispatch({
-    //         type: "GET_ALL_STATS_ARRAY",
-    //         payload: blizzArray,
-    //     });
-    // }
     
     function getBestLeaderboard(){
         dispatch({
@@ -55,11 +29,19 @@ export default function Leaderboard(){
 
     return (
         <div className = 'leaderboardBox'>
+            <h2 className = 'category'>Leaderboard</h2>
             <button onClick = {(e) => openTab(e, 'qp')} className = 'btn'>Quickplay</button>
             <button onClick = {(e) => openTab(e, 'comp')} className = 'btn'>Competitive</button>
             {
                 (currentLeaderboard == 'qp') &&
                 <table className = 'leaderboardTable'>
+
+                    <thead>
+                        <th>Category</th>
+                        <th>Leader</th>
+                        <th>Average per 10 min</th>
+                    </thead>
+                    
                     {leaderboard.quickplay && 
                         <tbody>
                             {leaderboard.quickplay.assists_avg_per_10_min &&
@@ -126,6 +108,13 @@ export default function Leaderboard(){
             {
                 (currentLeaderboard == 'comp') &&
                 <table className = 'leaderboardTable'>
+
+                    <thead>
+                        <th>Category</th>
+                        <th>Leader</th>
+                        <th>Average per 10 min</th>
+                    </thead>
+
                     {leaderboard.competitive && 
                         <tbody>
                             {leaderboard.competitive.assists_avg_per_10_min &&

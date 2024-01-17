@@ -56,7 +56,7 @@ export default function MyStack() {
         <div className="stackBox">
             <div className="overView">
               {compiledStats.total &&
-              <h1>Your stack has played for {Math.round(compiledStats.total.game.time_played/60/60)} hours </h1>
+              <h1 className = 'getALife'>Your stack has played for {Math.round(compiledStats.total.game.time_played/60/60)} hours </h1>
               
               }
               
