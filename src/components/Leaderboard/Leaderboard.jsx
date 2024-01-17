@@ -57,22 +57,137 @@ export default function Leaderboard(){
         <div className = 'leaderboardBox'>
             <button onClick = {(e) => openTab(e, 'qp')} className = 'btn'>Quickplay</button>
             <button onClick = {(e) => openTab(e, 'comp')} className = 'btn'>Competitive</button>
-            
             {
                 (currentLeaderboard == 'qp') &&
-                <table>
+                <table className = 'leaderboardTable'>
                     {leaderboard.quickplay && 
                         <tbody>
-                            <tr></tr>
-                            <tr></tr>
-                            <tr></tr>
-                            <tr></tr>
+                            {leaderboard.quickplay.assists_avg_per_10_min &&
+                            <tr>
+                                <td>Assists</td>
+                                <td>{leaderboard.quickplay.assists_avg_per_10_min.name}</td>
+                                <td>{leaderboard.quickplay.assists_avg_per_10_min.value}</td>
+                            </tr>
+                            }
+                            {leaderboard.quickplay.deaths_avg_per_10_min &&
+                            <tr>
+                                <td>Deaths</td>
+                                <td>{leaderboard.quickplay.deaths_avg_per_10_min.name}</td>
+                                <td>{leaderboard.quickplay.deaths_avg_per_10_min.value}</td>
+                            </tr>
+                            }
+                            {leaderboard.quickplay.eliminations_avg_per_10_min &&
+                            <tr>
+                                <td>Eliminations</td>
+                                <td>{leaderboard.quickplay.eliminations_avg_per_10_min.name}</td>
+                                <td>{leaderboard.quickplay.eliminations_avg_per_10_min.value}</td>
+                            </tr>
+                            }
+                            {leaderboard.quickplay.final_blows_avg_per_10_min &&
+                            <tr>
+                                <td>Final Blows</td>
+                                <td>{leaderboard.quickplay.final_blows_avg_per_10_min.name}</td>
+                                <td>{leaderboard.quickplay.final_blows_avg_per_10_min.value}</td>
+                            </tr>
+                            }
+                            {leaderboard.quickplay.healing_done_avg_per_10_min &&
+                            <tr>
+                                <td>Healing Done</td>
+                                <td>{leaderboard.quickplay.healing_done_avg_per_10_min.name}</td>
+                                <td>{leaderboard.quickplay.healing_done_avg_per_10_min.value}</td>
+                            </tr>
+                            }
+                            {leaderboard.quickplay.hero_damage_done_avg_per_10_min &&
+                            <tr>
+                                <td>Damage Done</td>
+                                <td>{leaderboard.quickplay.hero_damage_done_avg_per_10_min.name}</td>
+                                <td>{leaderboard.quickplay.hero_damage_done_avg_per_10_min.value}</td>
+                            </tr>
+                            }
+                            {leaderboard.quickplay.objective_kills_avg_per_10_min &&
+                            <tr>
+                                <td>Objective Kills</td>
+                                <td>{leaderboard.quickplay.objective_kills_avg_per_10_min.name}</td>
+                                <td>{leaderboard.quickplay.objective_kills_avg_per_10_min.value}</td>
+                            </tr>
+                            }
+                            {leaderboard.quickplay.solo_kills_avg_per_10_min &&
+                            <tr>
+                                <td>Solo Kills</td>
+                                <td>{leaderboard.quickplay.solo_kills_avg_per_10_min.name}</td>
+                                <td>{leaderboard.quickplay.solo_kills_avg_per_10_min.value}</td>
+                            </tr>
+                            }   
                         </tbody>
                         }
                 </table>
             }
-        
-        
+
+            {
+                (currentLeaderboard == 'comp') &&
+                <table className = 'leaderboardTable'>
+                    {leaderboard.competitive && 
+                        <tbody>
+                            {leaderboard.competitive.assists_avg_per_10_min &&
+                            <tr>
+                                <td>Assists</td>
+                                <td>{leaderboard.competitive.assists_avg_per_10_min.name}</td>
+                                <td>{leaderboard.competitive.assists_avg_per_10_min.value}</td>
+                            </tr>
+                            }
+                            {leaderboard.competitive.deaths_avg_per_10_min &&
+                            <tr>
+                                <td>Deaths</td>
+                                <td>{leaderboard.competitive.deaths_avg_per_10_min.name}</td>
+                                <td>{leaderboard.competitive.deaths_avg_per_10_min.value}</td>
+                            </tr>
+                            }
+                            {leaderboard.competitive.eliminations_avg_per_10_min &&
+                            <tr>
+                                <td>Eliminations</td>
+                                <td>{leaderboard.competitive.eliminations_avg_per_10_min.name}</td>
+                                <td>{leaderboard.competitive.eliminations_avg_per_10_min.value}</td>
+                            </tr>
+                            }
+                            {leaderboard.competitive.final_blows_avg_per_10_min &&
+                            <tr>
+                                <td>Final Blows</td>
+                                <td>{leaderboard.competitive.final_blows_avg_per_10_min.name}</td>
+                                <td>{leaderboard.competitive.final_blows_avg_per_10_min.value}</td>
+                            </tr>
+                            }
+                            {leaderboard.competitive.healing_done_avg_per_10_min &&
+                            <tr>
+                                <td>Healing Done</td>
+                                <td>{leaderboard.competitive.healing_done_avg_per_10_min.name}</td>
+                                <td>{leaderboard.competitive.healing_done_avg_per_10_min.value}</td>
+                            </tr>
+                            }
+                            {leaderboard.competitive.hero_damage_done_avg_per_10_min &&
+                            <tr>
+                                <td>Damage Done</td>
+                                <td>{leaderboard.competitive.hero_damage_done_avg_per_10_min.name}</td>
+                                <td>{leaderboard.competitive.hero_damage_done_avg_per_10_min.value}</td>
+                            </tr>
+                            }
+                            {leaderboard.competitive.objective_kills_avg_per_10_min &&
+                            <tr>
+                                <td>Objective Kills</td>
+                                <td>{leaderboard.competitive.objective_kills_avg_per_10_min.name}</td>
+                                <td>{leaderboard.competitive.objective_kills_avg_per_10_min.value}</td>
+                            </tr>
+                            }
+                            {leaderboard.competitive.solo_kills_avg_per_10_min &&
+                            <tr>
+                                <td>Solo Kills</td>
+                                <td>{leaderboard.competitive.solo_kills_avg_per_10_min.name}</td>
+                                <td>{leaderboard.competitive.solo_kills_avg_per_10_min.value}</td>
+                            </tr>
+                            }   
+                        </tbody>
+                        }
+                </table>
+            }
         </div>
     )
 }
