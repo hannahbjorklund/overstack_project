@@ -36,7 +36,9 @@ function Nav() {
               My Stack
             </Link>
 
-            
+            <Link className="navLink" to="/faq">
+              FAQ
+            </Link>
 
           </>
         )}

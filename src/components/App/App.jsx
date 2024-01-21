@@ -25,6 +25,7 @@ import MyStack from '../MyStack/MyStack';
 import AddFriendPage from '../AddFriendPage/AddFriendPage';
 import RemoveFriendPage from '../RemoveFriendPage/RemoveFriendPage';
 import './App.css';
+import FAQPage from '../FAQPage/FAQPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -122,6 +123,10 @@ function App() {
 
           <ProtectedRoute exact path = '/addFriend'>
             <AddFriendPage/>
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path = '/faq'>
+            <FAQPage/>
           </ProtectedRoute>
 
           <ProtectedRoute exact path = '/removeFriend'>

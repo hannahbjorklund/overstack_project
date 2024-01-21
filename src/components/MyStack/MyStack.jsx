@@ -9,6 +9,7 @@ export default function MyStack() {
   const allAccounts = useSelector((store) => store.blizzard.allAccounts);
   const allStatsArray = useSelector((store) => store.stats.allStatsArray);
   const compiledStats = useSelector((store) => store.stats.compiledStats);
+
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -51,26 +52,24 @@ export default function MyStack() {
 
   return (
     <div className="container">
-      <h1 className="title">My Stack</h1>
+      <h1 className="title"> My Stack </h1>
       <div className="stackContainer">
         <div className="stackBox">
             <div className="overView">
               {compiledStats.total &&
-              <h1 className = 'getALife'>Your stack has played for {Math.round(compiledStats.total.game.time_played/60/60)} hours </h1>
-              
+                <h1 className = 'getALife'> Your stack has played for {Math.round(compiledStats.total.game.time_played/60/60)} hours </h1>
               }
-              
             </div>
             <div className = 'statsBody'>
               {compiledStats.total &&
                 <div className = 'gameCombatBox'>
-                  <h2 className = 'category'>Game</h2>
-                  <p>Games played: {compiledStats.total.game.games_played} </p>
-                  <p>Games W/L: {compiledStats.total.game.games_won}/{compiledStats.total.game.games_lost}</p>
-                  <p>Avg Win Percentage: {Math.round(compiledStats.total.game.games_won*100/compiledStats.total.game.games_played)}%</p>
+                  <h2 className = 'category'> Game </h2>
+                  <p> Games played: {compiledStats.total.game.games_played} </p>
+                  <p> Games W/L: {compiledStats.total.game.games_won}/{compiledStats.total.game.games_lost} </p>
+                  <p> Avg Win Percentage: {Math.round(compiledStats.total.game.games_won*100/compiledStats.total.game.games_played)}% </p>
                   
-                  <h2 className = 'category'>Combat</h2>
-                  <p>Damage Done: {compiledStats.total.combat.damage_done}</p>
+                  <h2 className = 'category'> Combat </h2>
+                  <p> Damage Done: {compiledStats.total.combat.damage_done} </p>
                   <p>Eliminations: {compiledStats.total.combat.eliminations}</p>
                   <p>Final Blows: {compiledStats.total.combat.final_blows}</p>
                   <p>Melee Final Blows: {compiledStats.total.combat.melee_final_blows}</p>
