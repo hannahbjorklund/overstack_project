@@ -32,6 +32,7 @@ function* getBestLeaderboard(action) {
           }
         }
       }
+      // Repeat process for competitive stats
       if (x.competitive) {
         let playerAverageComp = x.competitive.all_heroes.average;
         for(let object of playerAverageComp) {

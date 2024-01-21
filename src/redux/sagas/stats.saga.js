@@ -72,10 +72,11 @@ function* compileStats(action) {
 
     // For each object in the array
     for (let object of statsArray) {
+      // If statement will exclude profiles without stats from being added
       if (object.total) {
-        // If statement will exclude profiles without stats from being added
         let totalGame = object.total.all_heroes.game;
         let totalCombat = object.total.all_heroes.combat;
+        // Add up all stats for game stats
         for (let property in totalGame) {
           if (compiledGame[property]) {
             compiledGame[property] += totalGame[property];
@@ -83,6 +84,7 @@ function* compileStats(action) {
             compiledGame[property] = totalGame[property];
           }
         }
+        // Add up all stats for combat stats
         for (let property in totalCombat) {
           if (compiledCombat[property]) {
             compiledCombat[property] += totalCombat[property];
@@ -163,6 +165,7 @@ function* compileStats(action) {
   }
 }
 
+// Get all of the stats from the API for a given overwatch account
 function* getAllPlayerStats(action) {
   try {
     let battleTag = action.payload;

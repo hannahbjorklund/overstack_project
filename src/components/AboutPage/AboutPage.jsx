@@ -32,6 +32,8 @@ function AboutPage() {
             <li>Javascript</li>
             <li>Axios</li>
             <li>Express</li>
+            <li>Redux-Saga</li>
+            <li>Passport</li>
             <li>React</li>
             <li>Bootstrap 5.0</li>
             <li>CSS</li>

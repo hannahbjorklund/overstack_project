@@ -39,6 +39,7 @@ function* getUsers() {
   }
 }
 
+// Allow an admin to delete a user acount
 function* deleteUser(action) {
   let userID = action.payload;
   if(confirm(`Are you sure you want to delete user with ID ${userID}?`)){
@@ -58,6 +59,7 @@ function* deleteUser(action) {
   }
 }
 
+// Allow an admin to promote or demote another user
 function* updateUser(action) {
   try {
     const config = {

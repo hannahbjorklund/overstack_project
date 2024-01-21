@@ -10,6 +10,7 @@ const userAccounts = (state = [], action) => {
   }
 };
 
+// Store the user's friended accounts
 const friendAccounts = (state = [], action) => {
   switch(action.type) {
     case "SET_FRIEND_ACCOUNTS":
@@ -19,6 +20,7 @@ const friendAccounts = (state = [], action) => {
   }
 }
 
+// Store all accounts (a user's stack)
 const allAccounts = (state = [], action) => {
   switch(action.type) {
     case "SET_ALL_ACCOUNTS":

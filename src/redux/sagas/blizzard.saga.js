@@ -6,7 +6,7 @@ function* addUserAccount(action){
     try {
         const newAccount = action.payload;
         if(newAccount.battletag == '-'){
-            alert("Sorry, an error occurred. Please try again");
+            alert("Sorry, an error occurred. Please refresh the page and try again");
         } else {
             // POST request
             const response = yield axios({
@@ -62,8 +62,8 @@ function* getFriendAccounts(action){
         let userID = action.payload.id;
         let filter = action.payload.filter;
         let friendAccountsResponse = yield axios.get(`blizzard/friends/${userID}`);;
+        // Different get routes depending on the user selected filter
         if (filter == 'alph'){
-            
             friendAccountsResponse = yield axios.get(`blizzard/friends/alph/${userID}`);
         } else if (filter == 'revAlph'){
             friendAccountsResponse = yield axios.get(`/blizzard/friends/revAlph/${userID}`);
@@ -83,7 +83,7 @@ function* addFriendAccount(action){
     try {
         const newAccount = action.payload;
         if(newAccount.battletag == '-'){
-            alert("Sorry, an error occurred. Please try again");
+            alert("Sorry, an error occurred. Please refresh the page and try again");
         } else {
             // POST request
             const response = yield axios({

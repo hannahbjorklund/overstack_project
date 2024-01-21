@@ -22,7 +22,6 @@ export default function MyFriends(){
     }, [friendAccounts]);
 
     function getFriendAccounts() {
-        console.log(filterOption);
         dispatch({
             type: 'GET_FRIEND_ACCOUNTS',
             payload: {id: user.id, filter: filterOption}
