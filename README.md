@@ -12,6 +12,8 @@ This project is deployed! Check it out [here](https://overstack-e13eace92494.her
 
 ## Demo
 
+You can view a demo of this application [here](https://youtu.be/00QkHRocwjE)
+
 ## Usage
 
 * Link accounts: preview and link multiple Overwatch profile(s) to your account on the Link Account page. 
