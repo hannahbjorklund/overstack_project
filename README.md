@@ -34,6 +34,12 @@ This project is deployed! Check it out [here](https://overstack-e13eace92494.her
 
 ## Developer Notes
 
+This is currently version 1.0 of Overstack. I would like to implement many more features in future versions.
+
+One particularly challenging aspect to this project was the amount of object oriented programming centered around formatting the API data. The API contained some repeat data values and data that I did not want to include in Overstack's statistics, as well lacked other data that I wished to add. However, doing formatting in the server to handle the incoming data made much of the project easier and smoother.
+
+I would like to overhaul the friend system in an upcoming update. I am also considering adding a friend feed where users can share their clips and play of the game videos, as well as achievements, and the ability to create multiple stacks.
+
 ## Acknowledgements
 
 Many thanks to my instructors, classmates, and mentors at [Prime Digital Academy](https://www.primeacademy.io/) who equipped me with the tools and support needed to create this project. I would also like to thank my close Overwatch friends, who peer reviewed my concept, tested app features, and suggested things to implement. 
