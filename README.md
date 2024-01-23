@@ -33,6 +33,7 @@ You can view a demo of this application [here](https://youtu.be/00QkHRocwjE)
 * Database manager
 * React
 * Bootstrap
+* Passport
 
 ## Developer Notes
 
